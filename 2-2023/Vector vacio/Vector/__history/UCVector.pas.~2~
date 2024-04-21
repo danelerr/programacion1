@@ -1,0 +1,47 @@
+unit UCVector;
+
+interface
+uses Sysutils;
+Const
+    MaxE=1024;
+Type
+     = Class
+      Private
+          Dimension : Word;
+          Elementos : Array[1..MaxE] Of Real;
+      Public
+          Function Dim : Word;
+          Procedure Redimensionar(d:Word);
+          Procedure modElemento(p:Word;e:Real);
+          Function getElemento(p:Word):Real;
+    End;
+
+implementation
+
+{  }
+
+function .Dim: Word;
+begin
+     Result:=Dimension;
+end;
+
+function .getElemento(p: Word): Real;
+begin
+     if (p>0) and (p<=Dimension) then
+        Result:=Elementos[p]
+     Else raise Exception.Create('Error Message');
+end;
+
+procedure .modElemento(p: Word; e: Real);
+begin
+     if (p>0) and (p<=Dimension) then
+        Elementos[p]:=e
+     Else raise Exception.Create('Error Message');
+end;
+
+procedure .Redimensionar(d: Word);
+begin
+     Dimension:=d;
+end;
+
+end.

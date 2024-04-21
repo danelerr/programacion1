@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/12/09 17:00:53.000.443,=C:\Users\PCMJPP\Documents\Embarcadero\Studio\Projects\Unit4.pas</Transaction>
+    <Transaction>2022/12/09 17:01:05.000.897,=C:\Users\PCMJPP\Documents\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2022/12/09 17:01:40.000.467,C:\Users\PCMJPP\Documents\Embarcadero\Studio\Projects\Unit5.pas=D:\Prog\Vectores\UCVector.pas</Transaction>
+    <Transaction>2022/12/09 17:01:53.000.124,C:\Users\PCMJPP\Documents\Embarcadero\Studio\Projects\Unit4.pas=D:\Prog\Vectores\UFPrincipal.pas</Transaction>
+    <Transaction>2022/12/09 17:01:53.000.124,C:\Users\PCMJPP\Documents\Embarcadero\Studio\Projects\Unit4.dfm=D:\Prog\Vectores\UFPrincipal.dfm</Transaction>
+    <Transaction>2022/12/09 17:02:03.000.583,C:\Users\PCMJPP\Documents\Embarcadero\Studio\Projects\Project4.dproj=D:\Prog\Vectores\Vectores.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

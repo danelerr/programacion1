@@ -1,0 +1,48 @@
+unit UCArchivoTexto;
+
+interface
+
+Type
+    ArchivoTexto = Class
+      Private
+          Nombre : String;
+          PFile  : TextFile;
+      Public
+          Procedure Abrir;
+          Procedure Guardar;
+          Procedure Cerrar;
+          Procedure setNombre(n:String);
+    End;
+
+implementation
+
+{ ArchivoTexto }
+
+procedure ArchivoTexto.Abrir;
+Var
+    s: String;
+begin
+     AssignFile(PFile,Nombre);
+     Reset(PFile);
+     while not EOF(PFile) do
+     Begin
+          Readln(PFile,s);
+     End;
+end;
+
+procedure ArchivoTexto.Cerrar;
+begin
+     CloseFile(PFile);
+end;
+
+procedure ArchivoTexto.Guardar;
+begin
+
+end;
+
+procedure ArchivoTexto.setNombre(n: String);
+begin
+     Nombre:=n;
+end;
+
+end.

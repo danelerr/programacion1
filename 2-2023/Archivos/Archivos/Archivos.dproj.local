@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/10/12 16:25:40.000.654,=C:\Users\LAB45-ESTUDIANTE\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/10/12 16:27:32.000.065,=C:\Users\LAB45-ESTUDIANTE\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/10/12 16:28:12.000.330,D:\ProgramacionI\Archivos\UCArchivoTexto.pas=C:\Users\LAB45-ESTUDIANTE\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/10/12 16:28:18.000.392,D:\ProgramacionI\Archivos\UFPrincipal.pas=C:\Users\LAB45-ESTUDIANTE\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/10/12 16:28:18.000.392,D:\ProgramacionI\Archivos\UFPrincipal.dfm=C:\Users\LAB45-ESTUDIANTE\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2023/10/12 16:28:29.000.407,D:\ProgramacionI\Archivos\Archivos.dproj=C:\Users\LAB45-ESTUDIANTE\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2023/10/16 20:52:21.000.721,=C:\Users\Samsung\UAGRM\Auxiliaturas\Programación 1\2-2023\Archivos\Archivos\UCCadena.pas</Transaction>
+  </Transactions>
+</BorlandProject>

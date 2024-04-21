@@ -1,0 +1,15 @@
+program PrincipalVectores;
+
+uses
+  Vcl.Forms,
+  UFVectores in 'D:\COPIA DE SEGURIDAD\UFVectores.pas' {VECTORES},
+  UCVectores in 'UCVectores.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TVECTORES, VECTORES);
+  Application.Run;
+end.

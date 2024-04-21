@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/11/11 00:11:30.000.302,E:\SANTI\PROGRAMACIÓN 1\Unidad de Vectores\UFVectores.pas=D:\COPIA DE SEGURIDAD\UFVectores.pas</Transaction>
+    <Transaction>2023/11/11 00:11:30.000.302,E:\SANTI\PROGRAMACIÓN 1\Unidad de Vectores\UFVectores.dfm=D:\COPIA DE SEGURIDAD\UFVectores.dfm</Transaction>
+    <Transaction>2023/11/11 00:11:59.000.415,E:\SANTI\PROGRAMACIÓN 1\Unidad de Vectores\PrincipalVectores.dproj=E:\SANTI\PROGRAMACIÓN 1\Unidad de Vectores\PrincipalVectores.dproj</Transaction>
+    <Transaction>2023/11/15 07:43:47.000.145,D:\COPIA DE SEGURIDAD\UFVectores.pas=</Transaction>
+    <Transaction>2023/11/15 07:45:31.000.190,=E:\SANTI\PROGRAMACIÓN 1\Unidad de Vectores\UFVectores.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="UFVectores.pas"/>
+    <File Path="UFVectores.dfm"/>
+    <File Path="UCVectores.pas"/>
+  </ProjectSortOrder>
+</BorlandProject>

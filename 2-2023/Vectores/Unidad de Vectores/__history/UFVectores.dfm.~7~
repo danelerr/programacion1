@@ -1,0 +1,114 @@
+object VECTORES: TVECTORES
+  Left = 0
+  Top = 0
+  Caption = 'VECTORES'
+  ClientHeight = 433
+  ClientWidth = 700
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 232
+    Top = 208
+    Width = 3
+    Height = 13
+  end
+  object SGVector: TStringGrid
+    Left = 24
+    Top = 56
+    Width = 649
+    Height = 57
+    ColCount = 1
+    FixedCols = 0
+    RowCount = 1
+    FixedRows = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    TabOrder = 0
+  end
+  object ScrollBar1: TScrollBar
+    Left = 24
+    Top = 135
+    Width = 649
+    Height = 17
+    PageSize = 0
+    TabOrder = 1
+    OnChange = ScrollBar1Change
+  end
+  object Button1: TButton
+    Left = 255
+    Top = 8
+    Width = 89
+    Height = 42
+    Caption = 'MOSTRAR'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 144
+    Top = 8
+    Width = 81
+    Height = 42
+    Caption = 'CARGAR'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = Button2Click
+  end
+  object MainMenu1: TMainMenu
+    Left = 40
+    Top = 8
+    object Vectores1: TMenuItem
+      Caption = 'Metodos'
+      object Obtenerelemento1: TMenuItem
+        Caption = 'Obtener elemento'
+        OnClick = Obtenerelemento1Click
+      end
+      object Aadirelemento1: TMenuItem
+        Caption = 'A'#241'adir elemento'
+        OnClick = Aadirelemento1Click
+      end
+      object Insertarelemento1: TMenuItem
+        Caption = 'Insertar elemento'
+        OnClick = Insertarelemento1Click
+      end
+      object Modificarelemento1: TMenuItem
+        Caption = 'Modificar elemento'
+        OnClick = Modificarelemento1Click
+      end
+      object Eliminarelemento1: TMenuItem
+        Caption = 'Eliminar elemento'
+        OnClick = Eliminarelemento1Click
+      end
+      object Dimension1: TMenuItem
+        Caption = 'Dimension'
+        OnClick = Dimension1Click
+      end
+      object Sumarelementos1: TMenuItem
+        Caption = 'Sumar elementos'
+        OnClick = Sumarelementos1Click
+      end
+      object Encontrarelemento1: TMenuItem
+        Caption = 'Encontrar elemento'
+      end
+      object Elementomenor1: TMenuItem
+        Caption = 'Elemento menor'
+      end
+    end
+  end
+end

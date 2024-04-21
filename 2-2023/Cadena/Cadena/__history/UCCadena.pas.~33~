@@ -1,0 +1,192 @@
+unit UCCadena;
+
+interface
+Uses SysUtils;
+
+Const
+    MaxC=1024;
+    separadores = [' ', ',', ':'];
+Type
+    Cadena = class
+      Private
+        Longitud   : Word;
+        Caracteres : Array[1..MaxC] of Char;
+      Public
+        Function Size:Word;
+        Function getChar(p:word):char;
+        Procedure addChar(c:char);
+        Procedure delChar(p:Word);
+        Procedure insChar(p:Word; c:Char);
+        Procedure modChar(p:Word; c:Char);
+        function getCadena: string;
+        procedure addCadena(cad: string);
+        procedure invertir;
+        procedure toMayuscula;
+        procedure toMinuscula;
+        function toEntero: cardinal;
+        function cantPals: cardinal;
+        function operarCadena: integer;
+
+    End;
+
+implementation
+
+{ Cadena }
+
+procedure Cadena.addCadena(cad: string);
+var i: integer;
+begin
+    longitud := length(cad);
+    for I := 1 to length(cad) do begin
+    caracteres[i] := cad[i];
+    end;
+end;
+
+procedure Cadena.addChar(c: Char);
+begin
+     Inc(Longitud);
+     Caracteres[Longitud]:=c;
+end;
+
+function Cadena.cantPals: cardinal;
+var i, cant: cardinal;
+begin
+  cant := 0;
+  for i := 1 to longitud-1 do begin
+     if (caracteres[i] in separadores) and not (caracteres[i+1] in separadores) then
+        cant := cant+1;
+  end;
+  if not (caracteres[longitud] in separadores) then cant:=cant+1;
+
+  result := cant;
+end;
+
+procedure Cadena.delChar(p: Word);
+var
+  I: Word;
+begin
+     if (p>0) And (p<=Longitud) then
+     Begin
+         for I := p to Longitud-1 do
+            Caracteres[i]:=Caracteres[i+1];
+         dec(Longitud);
+     End
+     Else raise Exception.Create('Posicion fuera de rango');
+end;
+
+function Cadena.getCadena: string;
+var x: string;
+i: integer;
+begin
+  x := '';
+  for i := 1 to longitud do  begin
+    x := x + Caracteres[i];
+  end;
+  result := x;
+end;
+
+function Cadena.getChar(p: word): char;
+begin
+     if (p>0) And (p<=Longitud) then
+       Result:=Caracteres[p]
+     Else raise Exception.Create('Posicion fuera de rango');
+end;
+
+procedure Cadena.insChar(p: Word; c: Char);
+var
+  I: Word;
+begin
+     if (p>0) And (p<=Longitud) then
+     Begin
+         Inc(Longitud);
+         for I := Longitud downto p+1 do
+            Caracteres[i]:=Caracteres[i-1];
+         Caracteres[p]:=c;
+     End
+     Else raise Exception.Create('Posicion fuera de rango');
+end;
+
+procedure Cadena.invertir;
+var i, f: integer;
+aux: char;
+begin
+  i := 1;
+  f := longitud;
+  while i <= f do begin
+    aux := caracteres[i];
+    caracteres[i] := caracteres[f];
+    caracteres[f] := aux;
+    i := i+1;
+    f := f-1;
+  end;
+end;
+
+procedure Cadena.modChar(p: Word; c: Char);
+begin
+     if (p>0) And (p<=Longitud) then
+        Caracteres[p]:=c
+     else raise Exception.Create('Posicion fuera de rango');
+end;
+
+function Cadena.operarCadena: integer;
+var num, res, i: integer;
+op: char;
+begin
+  op:='k';
+  num := 0;
+  res := 0;
+  for I := 1 to longitud do begin
+    if caracteres[i] in ['0'..'9'] then
+          num := num*10+StrToInt(caracteres[i]);
+    if caracteres[i] in ['+', '-'] then op := caracteres[i];
+
+    if (i > 1) and not (caracteres[i] in ['0'..'9']) and (caracteres[i-1] in ['0'..'9']) then begin
+        if op = '+' then res := res + num
+        else if op = '-' then  res := res - num
+        else res := num;
+        op:='k';
+        num := 0;
+    end;
+  end;
+  if caracteres[longitud] in ['0'..'9'] then begin
+    num := num*10+StrToInt(caracteres[longitud]);
+    if op = '+' then res := res + num
+    else if op = '-' then  res := res - num;
+  end;
+  result := res;
+end;
+
+function Cadena.Size: Word;
+begin
+     Result:=Longitud;
+end;
+
+function Cadena.toEntero: cardinal;
+var i, x: integer;
+begin
+    x := 0;
+  for i := 1 to longitud do begin
+     x := x *10 + (ord(caracteres[i]) - 48);
+  end;
+  result := x;
+end;
+
+procedure Cadena.toMayuscula;
+var i: integer;
+begin
+  for i := 1 to longitud do begin
+    if caracteres[i] in ['a'..'z'] then
+      caracteres[i] := chr(ord(caracteres[i])-32);
+  end;
+end;
+
+procedure Cadena.toMinuscula;
+var i: integer;
+begin
+  for i := 1 to longitud do begin
+    if caracteres[i] in ['A'..'Z'] then
+      caracteres[i] := chr(ord(caracteres[i])+32);
+  end;
+end;
+
+end.

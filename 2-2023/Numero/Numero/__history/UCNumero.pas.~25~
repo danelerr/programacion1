@@ -1,0 +1,176 @@
+unit UCNumero;
+
+interface
+uses Math,Sysutils,  Vcl.Dialogs;
+
+Type
+    Numero=Class
+      Private
+         Valor:Cardinal;
+      Public
+         Function countDigit:Byte;
+         Function getDigit(p:byte):Byte;
+         Function getValue:Cardinal;
+         Procedure setValue(v:Cardinal);
+         Procedure addDigitF(d:Byte);
+         Procedure addDigitL(d:Byte);
+         Procedure delDigit(p:Byte);
+         Procedure insDigit(p:byte;d:byte);
+         Procedure modDigit(p:Byte;d:Byte);
+         procedure ordenarMayorAMenor;
+         procedure ordenarAdentroAfuera;
+         function encontrarCombinacion(k: word): cardinal;
+    End;
+
+implementation
+
+
+{ Numero }
+
+procedure Numero.addDigitF(d: Byte);
+begin
+     Valor:=Valor*10+d;
+end;
+
+procedure Numero.addDigitL(d: Byte);
+begin
+     Valor:=d*Trunc(power(10,countDigit))+Valor;
+end;
+
+function Numero.countDigit: Byte;
+begin
+     if Valor=0 then Result:=1
+     Else
+     Result:=Trunc(Log10(Valor))+1;
+end;
+
+procedure Numero.delDigit(p: Byte);
+begin
+     Valor:=(Valor div Trunc(Power(10,p)))*Trunc(Power(10,p-1))+(Valor mod Trunc(Power(10,p-1)));
+end;
+
+function Numero.encontrarCombinacion(k: word): cardinal;
+var n, a, i, num, sumDig: cardinal;
+d: byte;
+begin
+  a := 1;
+  i := 0;
+  while (i < countDigit) do begin
+    n := valor div a;
+    num := n mod 10;
+    sumDig := num;
+    n := n div 10;
+    n := n*a + (valor mod a);
+    while n>0 do begin
+      if (sumDig = k) then begin
+        i := countDigit + 1;
+        break;
+      end;
+      d := n mod 10;
+      n := n div 10;
+      if (d <> 0) then begin
+        if (d + sumDig <= k) then begin
+          sumDig := sumDig + d;
+          num := num *10 + d;
+        end;
+        if ((d + (sumDig - num mod 10)) > sumDig) and ((d + sumDig - num mod 10) <= k) then begin
+          sumDig := d + (sumDig - num mod 10);
+          num := num div 10;
+          num := num *10 + d;
+        end;
+      end;
+    end;
+
+    i := i + 1;
+    a := a *10;
+    ShowMessage(intToStr(n));
+  end;
+  result := 0;
+end;
+
+function Numero.getDigit(p: byte): Byte;
+begin
+     Result:=(Valor div Trunc(Power(10,p-1))) mod 10;
+end;
+
+function Numero.getValue: Cardinal;
+begin
+     Result:=Valor;
+end;
+
+procedure Numero.insDigit(p, d: byte);
+begin
+     Valor:=(Valor div Trunc(Power(10,p-1))*10+d)*Trunc(Power(10,p-1))+(Valor mod Trunc(Power(10,p-1)));
+end;
+
+procedure Numero.modDigit(p, d: Byte);
+begin
+     if (p>0)And(p<=countDigit) then
+       Valor:=(Valor div Trunc(Power(10,p))*10+d)*Trunc(Power(10,p-1))+(Valor mod Trunc(Power(10,p-1)))
+     Else raise Exception.Create('Posicion fuera de rango');
+end;
+
+procedure Numero.ordenarAdentroAfuera;
+var b: boolean;
+n, k: cardinal;
+begin
+  ordenarMayorAMenor;
+  b := true;
+  if countDigit mod 2 = 0 then b := false;
+  n := valor;
+  valor := 0;
+  k := 1;
+  while n>0 do begin
+    if b then begin
+      //pegar por izquierda
+      valor := (n mod 10)*k + valor;
+      b := false;
+    end else begin
+      //pegar por derecha
+      valor := valor*10 + (n mod 10);
+      b := true;
+    end;
+    n := n div 10;
+    k := k*10;
+  end;
+end;
+
+procedure Numero.ordenarMayorAMenor;
+var i, d: byte;
+    n, x: cardinal;
+begin
+  x := 0;
+  for i := 9 downto 0 do begin
+    n := valor;
+    while n>0 do begin
+      d := n mod 10;
+      n := n div 10;
+      if d=i then x := x*10+d;
+    end;
+  end;
+  valor := x;
+end;
+
+procedure Numero.setValue(v: Cardinal);
+begin
+     Valor:=v;
+end;
+
+
+{
+Es de la clase número
+Sea un número y un parámetro k, mostrar la combinación que sea
+
+igual a k
+Ejemplo
+
+583512.  K = 12
+El resultado que debe salir es 831 ya que 8+3+1 es 12
+Puede salir 552,381,183
+
+Este está duro xd
+
+
+}
+
+end.

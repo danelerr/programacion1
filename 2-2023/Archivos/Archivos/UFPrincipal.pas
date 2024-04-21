@@ -1,0 +1,209 @@
+unit UFPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  UCArchivoTexto,Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, UCCadena;
+
+type
+  TfrmPrincipal = class(TForm)
+    MainMenu1: TMainMenu;
+    Archvio1: TMenuItem;
+    Archvio2: TMenuItem;
+    OpenDialog1: TOpenDialog;
+    Memo1: TMemo;
+    Guardar1: TMenuItem;
+    SaveDialog1: TSaveDialog;
+    amayuscula1: TMenuItem;
+    buscaryremplazar1: TMenuItem;
+    getminpeso1: TMenuItem;
+    getsinonimo1: TMenuItem;
+    procedure Archvio2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Guardar1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure amayuscula1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure buscaryremplazar1Click(Sender: TObject);
+    procedure getminpeso1Click(Sender: TObject);
+    procedure getsinonimo1Click(Sender: TObject);
+  private
+    { Private declarations }
+    MiArchivo : ArchivoTexto;
+    C: cadena;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.amayuscula1Click(Sender: TObject);
+var s: string;
+i: integer;
+begin
+     s := '';
+     //recuperamos en s el contenido del memo
+     for I := 0 to Memo1.Lines.Count do
+     Begin
+          s:=s+Memo1.Lines[i] + #13#10;
+     End;
+
+     //cargamos el contenido del memo en el objeto cadena
+     c.addCadena(s);
+
+     //la llamada al metodo a utilizar
+     c.toMayuscula;
+
+     //cargamos lo de la clase de cadena al memo
+     Memo1.Lines.Clear;
+     Memo1.lines.Add(c.getCadena);
+end;
+
+procedure TfrmPrincipal.Archvio2Click(Sender: TObject);
+begin
+     If OpenDialog1.Execute Then
+     Begin
+          MiArchivo.setNombre(OpenDialog1.FileName);
+          MiArchivo.Abrir(memo1);
+     End;
+
+
+end;
+
+procedure TfrmPrincipal.buscaryremplazar1Click(Sender: TObject);
+var s, s1, s2: string;
+i: integer;
+begin
+     s := '';
+     //recuperamos en s el contenido del memo
+     for I := 0 to Memo1.Lines.Count do
+     Begin
+          s:=s+Memo1.Lines[i] + #13#10;
+     End;
+
+     //cargamos el contenido del memo en el objeto cadena
+     c.addCadena(s);
+
+     //la llamada al metodo a utilizar
+     s1 := inputBox('Ingrese la cadena a buscar', 'cadena', '');
+     s2 := inputBox('Ingrese la cadena a reemplazar', 'cadena', '');
+     c.findAndReplace(s1, s2);
+
+     //cargamos lo de la clase de cadena al memo
+     Memo1.Lines.Clear;
+     Memo1.lines.Add(c.getCadena);
+end;
+procedure TfrmPrincipal.Button1Click(Sender: TObject);
+var s, sf, sr: string;
+i: integer;
+begin
+     s := '';
+     //recuperamos en s el contenido del memo
+     for I := 0 to Memo1.Lines.Count do
+     Begin
+          s:=s+Memo1.Lines[i] + #13#10;
+     End;
+
+     //cargamos el contenido del memo en el objeto cadena
+     c.addCadena(s);
+
+     //la llamada al metodo a utilizar
+     sf := InputBox('Ingrese la palabra a buscar', 'palabra', '');
+     sr := InputBox('Ingrese la palabra a reemplazar', 'palabra', '');
+     c.findAndReplace(sf, sr);
+
+     //cargamos lo de la clase de cadena al memo
+     Memo1.Lines.Clear;
+     Memo1.lines.Add(c.getCadena);
+end;
+
+
+procedure TfrmPrincipal.Button2Click(Sender: TObject);
+var s: string;
+i: integer;
+begin
+     s := '';
+     //recuperamos en s el contenido del memo
+     for I := 0 to Memo1.Lines.Count do
+     Begin
+          s:=s+Memo1.Lines[i] + #13#10;
+     End;
+
+     //cargamos el contenido del memo en el objeto cadena
+     c.addCadena(s);
+
+     //la llamada al metodo a utilizar
+     showMessage(IntToStr(c.countWord));
+
+     //cargamos lo de la clase de cadena al memo
+     Memo1.Lines.Clear;
+     Memo1.lines.Add(c.getCadena);
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+     MiArchivo := ArchivoTexto.Create;
+     C := Cadena.Create;
+end;
+
+procedure TfrmPrincipal.getminpeso1Click(Sender: TObject);
+var s: string;
+i: integer;
+begin
+     s := '';
+     //recuperamos en s el contenido del memo
+     for I := 0 to Memo1.Lines.Count do
+     Begin
+          s:=s+Memo1.Lines[i] + #13#10;
+     End;
+
+     //cargamos el contenido del memo en el objeto cadena
+     c.addCadena(s);
+
+     //la llamada al metodo a utilizar
+     s := c.getCodeMinPeso;
+     showMessage(s);
+
+     //cargamos lo de la clase de cadena al memo
+     Memo1.Lines.Clear;
+     Memo1.lines.Add(c.getCadena);
+end;
+procedure TfrmPrincipal.getsinonimo1Click(Sender: TObject);
+var s, s1: string;
+i: integer;
+begin
+     s := '';
+     //recuperamos en s el contenido del memo
+     for I := 0 to Memo1.Lines.Count do
+     Begin
+          s:=s+Memo1.Lines[i] + #13#10;
+     End;
+
+     //cargamos el contenido del memo en el objeto cadena
+     c.addCadena(s);
+
+     //la llamada al metodo a utilizar
+     s1 := inputBox('ingrese la palbra a buscar', 'pal', '');
+     s := c.modeloSinonimo(s1);
+     showMessage(s);
+
+     //cargamos lo de la clase de cadena al memo
+     Memo1.Lines.Clear;
+     Memo1.lines.Add(c.getCadena);
+end;
+procedure TfrmPrincipal.Guardar1Click(Sender: TObject);
+begin
+     if SaveDialog1.Execute then
+     Begin
+          MiArchivo.setNombre(SaveDialog1.FileName);
+          MiArchivo.Guardar(memo1);
+     End;
+end;
+
+end.

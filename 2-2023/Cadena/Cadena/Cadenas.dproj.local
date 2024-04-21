@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/09/16 19:52:08.000.053,=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/09/27 16:49:38.000.969,=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/09/27 16:49:48.000.012,=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/09/27 16:50:16.000.541,C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit2.pas=D:\Programacion I\Cadena\UCCadena.pas</Transaction>
+    <Transaction>2023/09/27 16:50:31.000.492,C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Programacion I\Cadena\UFPrincipal.pas</Transaction>
+    <Transaction>2023/09/27 16:50:31.000.492,C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Programacion I\Cadena\UFPrincipal.dfm</Transaction>
+    <Transaction>2023/09/27 16:50:35.000.157,C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Programacion I\Cadena\Cadenas.dproj</Transaction>
+    <Transaction>2023/09/27 18:06:11.000.942,=D:\Programacion I\Cadena\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

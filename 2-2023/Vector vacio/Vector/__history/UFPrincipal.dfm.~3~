@@ -1,0 +1,57 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'VECTORES'
+  ClientHeight = 385
+  ClientWidth = 559
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -21
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 25
+  object SGVector: TStringGrid
+    Left = 56
+    Top = 32
+    Width = 417
+    Height = 73
+    ColCount = 1
+    DefaultRowHeight = 32
+    FixedCols = 0
+    RowCount = 1
+    FixedRows = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goFixedRowDefAlign]
+    TabOrder = 0
+  end
+  object ScrollBar1: TScrollBar
+    Left = 56
+    Top = 111
+    Width = 417
+    Height = 17
+    Max = 128
+    Min = 1
+    PageSize = 0
+    Position = 1
+    TabOrder = 1
+    OnChange = ScrollBar1Change
+  end
+  object MainMenu1: TMainMenu
+    Left = 272
+    Top = 224
+    object Metodos1: TMenuItem
+      Caption = 'Metodos'
+      object CargarVector1: TMenuItem
+        Caption = 'Cargar Vector'
+        OnClick = CargarVector1Click
+      end
+      object CargarVector2: TMenuItem
+        Caption = 'Mostrar Vector'
+      end
+    end
+  end
+end

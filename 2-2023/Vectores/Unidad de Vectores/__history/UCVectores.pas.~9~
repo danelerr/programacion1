@@ -1,0 +1,171 @@
+unit UCVectores;
+
+interface
+  Uses
+  SysUtils;
+
+  Const
+  MaxE = 2048;
+  type
+    Vector = Class
+
+      Private
+        Dimension : Word;
+        Elementos : Array [1..MaxE] of real;
+
+      Public
+        Procedure ReDimensionar(d:Cardinal);
+        Constructor create;
+        Procedure AddElemnt(E:Real);
+        Procedure InsElement(P:word;E:Real);
+        Procedure ModElement(P:word;E:Real);
+        Procedure DelElement (P:Word);
+        Function GetElement (P:word):Real;
+        Function Dim:word;
+        Function SumElements:Real;
+        Function FindElement(E:real):string;
+        Function MenorElement:real;
+        Function BusquedaSecuencial(E:real):word;
+        Procedure ARandom(c,ri,rf:cardinal);
+
+    End;
+
+implementation
+
+{ Vextor }
+
+procedure Vector.AddElemnt(E: Real);
+begin
+  Dimension := Dimension + 1;
+  Elementos[Dimension] := E;
+end;
+
+function Vector.BusquedaSecuencial(E: real): word;
+var
+    i:integer; p: word;
+begin
+  i:= 1; p:= 0;
+  while (i<=Dimension) and (p=0) do
+  begin
+      if E=Elementos[i] then
+          p:= i;
+      inc(i);
+  end;
+  Result:= p;
+end;
+
+constructor Vector.create;
+begin
+
+end;
+
+procedure Vector.DelElement(P: Word);
+var
+  I: Integer;
+begin
+  if (p>0) and (p<=Dimension) then
+  begin
+    for I := p to Dimension-1 do
+    begin
+      Elementos[i] := Elementos[i+1];
+    end;
+    Dec(dimension);
+  end
+  else raise Exception.Create('Posición fuera de rango');
+end;
+
+function Vector.Dim: word;
+begin
+  Result:= Dimension;
+end;
+
+function Vector.FindElement(E: real): string;
+var
+  I: Integer; p:string;
+begin
+  p:= '';
+  for I := 1 to Dimension do
+  begin
+    if E = Elementos[i] then
+      p:= p + InttoStr(i) + ' ';
+  end;
+  if p>'' then result:= p
+  else raise Exception.Create('No existe el elemento ' + FloatToStr(e) +' en el vector');
+
+end;
+
+
+
+procedure Vector.InsElement(P: word; E: Real);
+var
+  I: Integer;
+begin
+  if (p>0) and (p<=Dimension) then
+  begin
+    Inc(dimension);
+    for I := Dimension downto p do
+      Elementos[i]:= Elementos [i-1];
+    Elementos[p]:= E;
+  end
+  else raise Exception.Create('Posición fuera de rango');
+end;
+
+function Vector.MenorElement: real;
+var
+  I: Integer;  menor:real;
+begin
+  menor:= MaxE;
+  for I := 1 to Dimension do
+  begin
+    if Elementos[i] < menor then menor:= Elementos[i];
+  end;
+  Result:= menor;
+end;
+
+procedure Vector.ModElement(P: word; E: Real);
+begin
+  if (p>0) and (p<=Dimension) then
+  begin
+    Elementos[p]:= E;
+  end
+  else raise Exception.Create('Posición fuera de rango');
+end;
+
+procedure Vector.ARandom(c, ri, rf: cardinal);
+var
+  I: Integer;
+begin
+    Randomize;
+
+    for I := 1 to c do
+    begin
+      self.AddElemnt(IntToFloat(Random(100)+1))
+    end;
+end;
+
+procedure Vector.ReDimensionar(d:cardinal);
+begin
+  Dimension:= d;
+end;
+
+function Vector.GetElement(P: word): Real;
+begin
+  if (p>0) and (p<=dimension) then
+  begin
+    Result:= Elementos[p];
+  end else raise Exception.Create('Posición fuera de rango');
+end;
+
+
+
+function Vector.SumElements: Real;
+var
+  I: Integer; sum:real;
+begin
+  Sum:= 0;
+  for I := 1 to Dimension do
+    Sum:= Sum + Elementos[i];
+  Result:=sum;
+end;
+
+end.
