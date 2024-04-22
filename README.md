@@ -11,5 +11,6 @@ En cada carpeta de semeste, vas a encontrar las distintas clases que se avanzan 
 Puedes descar todo el proyecto, o si buscas uno en especifico, todos tienen su .rar para que no descargues archivo por archivo.
 
 ### Acerca de:
+Canal de youtube: https://www.youtube.com/@danelerr/
 >Proyectos desarrollados por Daniel Cueto T. @danelerr 
 > **Auxiliar Oficial de la materia**.
