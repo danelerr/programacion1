@@ -1,0 +1,23 @@
+unit uTBala;
+
+interface
+uses Vcl.Graphics;
+
+type
+ TBala = class
+   bala: TBitMap;
+   Top: word;
+   Lelf: word;
+   constructor Create;
+end;
+
+implementation
+
+{ TBala }
+
+constructor TBala.Create;
+begin
+
+end;
+
+end.

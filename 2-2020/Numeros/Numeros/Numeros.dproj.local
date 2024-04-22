@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/04/02 17:45:25.000.912,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/12/08 23:04:19.000.938,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/12/09 17:15:04.000.640,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/12/09 17:15:28.000.845,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/12/09 17:16:43.000.617,C:\MJP\Programacion I\UCNumero.pas=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/12/09 17:17:04.000.489,C:\MJP\Programacion I\UFPrincipal.pas=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/12/09 17:17:04.000.489,C:\MJP\Programacion I\UFPrincipal.dfm=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/12/09 17:17:19.000.501,C:\MJP\Programacion I\Numeros.dproj=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

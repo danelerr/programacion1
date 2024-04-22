@@ -1,0 +1,358 @@
+unit UCNumero;
+
+interface
+uses Math, sysutils;
+Type
+    NumeroNatural = Class
+      Private
+            Valor:Cardinal;
+      Public
+           Procedure setValue(v:Cardinal);
+           Function getValue:Cardinal;
+           Function getNumDig:byte;
+           Procedure insDigit(p:byte;d:byte);
+           Procedure delDigit(p:byte);
+           procedure setDigit(p:byte;d:byte);
+           function getDigit(p: byte): byte;
+           function esSubnumero(num: cardinal): boolean;
+           procedure invertir;
+           procedure borrarCeros;
+           procedure ordenarDescendente;
+           procedure ordenarAdentroAfuera;
+           function toRoman: String;
+           function toLit3D(n: Word): String;
+           procedure base10aBaseN(n: byte);
+           procedure baseNaBase10(n: byte);
+           function getEnHex: string;
+           function HexToDec(hex: string): longword;
+
+           procedure reemplazarSubNumero(sub, num: word);
+
+           function getSegMayorImpar: integer;
+           function seParecen(n: cardinal): boolean;
+
+    End;
+
+implementation
+
+{ NumeroNatural }
+
+function NumeroNatural.getSegMayorImpar: integer;
+var d, may: byte;
+    n: cardinal;
+    smay: integer;
+begin
+  n := valor;
+  may := 0;
+  while n<>0 do begin
+    d := n mod 10;
+    n := n div 10;
+    if (d > may) and (d mod 2 <> 0) then may := d;
+  end;
+  n := valor;
+  smay := -1;
+  while n<>0 do begin
+    d := n mod 10;
+    n := n div 10;
+    if (d < may) and (d > smay) and (d mod 2 <> 0) then smay := d;
+  end;
+  result := smay;
+end;
+
+function NumeroNatural.seParecen(n: cardinal): boolean;
+var
+  dig: set of byte;
+  val: cardinal;
+begin
+  val := valor;
+  while val<>0 do begin
+    dig := dig + [val mod 10];
+    val := val div 10;
+  end;
+  while n<>0 do begin
+    if not (n mod 10) in dig then exit(false);
+    n := n div 10;
+  end;
+  exit(true);
+end;
+
+
+procedure NumeroNatural.delDigit(p: byte);
+Var
+  t:Cardinal;
+begin
+     t:=Trunc(IntPower(10,p-1));
+     Valor:=((Valor div t) div 10)*t+(Valor mod t);
+end;
+
+function NumeroNatural.getNumDig: byte;
+begin
+     if Valor=0 then Result:=1
+     Else
+     Result:=Trunc(Log10(Valor))+1;
+end;
+
+function NumeroNatural.getValue: Cardinal;
+begin
+     Result:=Valor;
+end;
+
+procedure NumeroNatural.insDigit(p, d: byte);
+Var
+  t:Cardinal;
+begin
+     t:=Trunc(IntPower(10,p-1));
+     Valor:=((Valor div t)*10+d)*t+(Valor mod t);
+end;
+
+procedure NumeroNatural.setValue(v: Cardinal);
+begin
+     Valor:=v;
+end;
+
+procedure NumeroNatural.setDigit(p:byte;d:byte);
+Var
+  t:Cardinal;
+begin
+     t:=Trunc(IntPower(10,p-1));
+     Valor:=(((Valor div t) div 10)*10+d)*t+(Valor mod t);
+end;
+
+function NumeroNatural.getDigit(p: byte): byte;
+var t: cardinal;
+begin
+  t:=Trunc(IntPower(10,p-1));
+  result := (Valor div t) mod 10;
+end;
+
+//busca num adentro de self.valor
+function NumeroNatural.esSubnumero(num: cardinal): boolean;
+var numd: byte;
+    aux, t, t2: cardinal;
+begin
+  if num = 0 then numd := 1
+  else numd := Trunc(Log10(num))+1;
+  aux := valor;
+  t:= Trunc(IntPower(10,numd));
+  while aux <> 0 do begin
+    t2 := aux mod t;
+    if t2 = num then exit(true);
+    aux := aux div 10;
+  end;
+  exit(false);
+end;
+
+//invertir sin crear una copia del numero
+procedure NumeroNatural.invertir;
+var
+  nd: byte;
+begin
+  for nd := getNumDig+1 downto 1 do begin
+    insDigit(nd, getDigit(1));
+    delDigit(1);
+  end;
+end;
+
+
+//AUXILIATURA 2
+
+//borra los ceros del valor
+procedure NumeroNatural.borrarCeros;
+var d, nd: byte;
+begin
+  for nd := getNumDig downto 1 do begin
+    d := getDigit(nd);
+    if d=0 then delDigit(nd);
+  end;
+
+end;
+
+//ordena ej: 2317846 -> 8764321
+procedure NumeroNatural.ordenarDescendente;
+var a, NumOrd: cardinal;
+  d, i: byte;
+begin
+  NumOrd:=0;
+  for i := 9 downto 0 do begin
+    a := valor;
+    while a<>0 do begin
+      d := a mod 10;
+      a := a div 10;
+      if d=i then NumOrd:=NumOrd*10+d;
+    end;
+  end;
+  Valor := NumOrd;
+end;
+
+
+//ordena ej: 123450 ->   531024
+procedure NumeroNatural.ordenarAdentroAfuera;
+var NumOrd, k: cardinal;
+d, nd: byte;
+b: boolean;
+begin
+   ordenarDescendente;
+   nd := getNumDig;
+   NumOrd := Valor;
+   Valor := 0;
+   b := false;
+   if nd mod 2 <> 0 then b := true;
+   k := 1;
+   while NumOrd<>0 do begin
+      d := NumOrd mod 10;
+      NumOrd := NumOrd div 10;
+      if b then valor := (d * k) + valor //izqui
+      else valor := valor * 10 + d; //derecha
+      b := not b;
+      k := k * 10;
+   end;
+end;
+
+
+function NumeroNatural.toLit3D(n: Word): String;
+Const
+     Uni:Array[1..15] of String=('Uno','Dos','Tres','Cuatro','Cinco','Seis','Siete','Ocho','Nueve','Diez','Once','Doce','Trece','Catorce','Quince');
+     Dec:Array[1..9] of String=('Diez','Veinte','Treinta','Cuarenta','Cincuenta','Sesenta','Setenta','Ochenta','Noventa');
+begin
+     if n<=15 then
+        Result:=Uni[n]
+     Else Result:=Dec[n div 10]+' y '+Uni[n mod 10];
+end;
+
+function NumeroNatural.toRoman: String;
+Const
+    Dig:Array[1..4,1..9]of String=(
+    ('I','II','III','IV','V','VI','VII','VIII','IX'),
+    ('X','XX','XXX','XL','L','LX','LXX','LXXX','XC'),
+    ('C','CC','CCC','CD','D','DC','DCC','DCCC','CM'),
+    ('M','MM','MMM','MV','V','VI','VII','VIII','IX'));
+Var
+  p,d:Byte;
+  n:Cardinal;
+  R: String;
+begin
+    R:='';p:=1;
+    n:=Valor;
+    while n>0 do
+    Begin
+        d:=n mod 10;
+        R:=Dig[p,d]+R;
+        n:= n div 10;
+        inc(p);
+    End;
+    Result:=R;
+end;
+
+procedure NumeroNatural.base10aBaseN(n: byte);
+var res, aux: cardinal;
+  d: byte;
+begin
+  res := 0;
+  aux := 1;
+  while valor<>0 do begin
+    d := valor mod n;
+    valor := valor div n;
+    res := (d * aux) + res;
+    aux := aux * 10;
+  end;
+  valor := res;
+end;
+
+
+procedure NumeroNatural.baseNaBase10(n: byte);
+var aux, res: cardinal;
+  d: byte;
+begin
+  res := 0;
+  aux := 1;
+  while valor<>0 do begin
+    d := valor mod 10;
+    valor := valor div 10;
+    res := res + (d*aux);
+    aux := aux * n;
+  end;
+  valor := res;
+end;
+
+function NumeroNatural.getEnHex: string;
+var
+  d: byte;
+  res: string;
+begin
+  res := '';
+  while valor<>0 do begin
+    d := valor mod 16;
+    valor := valor div 16;
+    case d of
+    10: res := 'A' + res;
+    11: res := 'B' + res;
+    12: res := 'C' + res;
+    13: res := 'D' + res;
+    14: res := 'E' + res;
+    15: res := 'F' + res;
+    else
+      res := IntToStr(d) + res;
+    end;
+  end;
+  result := res;
+end;
+
+
+function NumeroNatural.HexToDec(hex: string): longword;
+var i, d: byte;
+  aux, res: uint64;
+begin
+  aux := 1; res := 0;
+  for i := length(hex) downto 1 do begin
+    case hex[i] of
+      'A': d := 10;
+      'B': d := 11;
+      'C': d := 12;
+      'D': d := 13;
+      'E': d := 14;
+      'F': d := 15;
+      else 
+        d := StrToInt(hex[i]);
+    end;
+    res := (d*aux) + res;
+    aux := aux * 16;
+  end;
+  result := res;
+end;
+
+
+function cantDigit(n: cardinal): byte;
+begin
+  if n=0 then Result:=1
+     Else
+     Result:=Trunc(Log10(n))+1;
+end;
+
+
+//reemplaza el numero sub, por el numero num
+procedure NumeroNatural.reemplazarSubNumero(sub, num: word);
+var new, n, zsub, x, k: cardinal;
+begin
+  new := 0;
+  n := valor;
+  zsub := trunc(power(10, cantDigit(sub)));
+  k := 1;
+  while n<>0 do begin
+      x := n mod zsub;
+      if sub = x then begin
+        n := n div zsub;
+        new :=  num*k + new;
+        k := trunc(power(10, cantDigit(new)));
+        if num = 0 then k:=k*10;
+      end else begin
+        new := ((n mod 10)*k) + new;
+        n := n div 10;
+        k := k * 10;
+      end;
+  end;
+  valor := new;
+end;
+
+
+
+end.

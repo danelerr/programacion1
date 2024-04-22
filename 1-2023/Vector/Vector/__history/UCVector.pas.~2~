@@ -1,0 +1,18 @@
+unit UCVector;
+
+interface
+
+const MaxC = 1024;
+
+type
+  Vector = class
+  private
+   Dimension: word;
+   Elementos: array[1..MaxC] of Real;
+  public
+
+end;
+
+implementation
+
+end.

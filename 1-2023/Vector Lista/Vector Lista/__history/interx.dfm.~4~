@@ -1,0 +1,32 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 337
+  ClientWidth = 770
+  Color = clHighlight
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Menu = MainMenu1
+  TextHeight = 15
+  object StringGrid1: TStringGrid
+    Left = 16
+    Top = 64
+    Width = 465
+    Height = 225
+    ColCount = 3
+    DefaultColWidth = 150
+    DefaultRowHeight = 45
+    FixedCols = 0
+    RowCount = 4
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goFixedRowDefAlign]
+    TabOrder = 0
+  end
+  object MainMenu1: TMainMenu
+    Left = 96
+    Top = 304
+  end
+end

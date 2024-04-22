@@ -1,0 +1,541 @@
+unit UCMatriz;
+
+interface
+Uses SysUtils, math;
+const
+     Nf = 128;
+     Nc = 128;
+Type
+
+    Matriz = Class
+      Private
+             NroFilas,
+             NroColumnas : Word;
+             Celdas: Array[1..Nf,1..Nc] Of Real;
+             Chars: array[1..Nf, 1..Nc] of char;
+      Public
+            Procedure Redimensionar(NF,NC:Word);
+            Function Filas : Word;
+            Function Columnas : Word;
+            Function ObtElement(F,C:Word):Real;
+            Procedure ModElement(F,C:Word; E:Real);
+            Procedure AddFila;
+            Procedure AddColumna;
+            Procedure InsFila(F:Word);
+            Procedure InsColumna(C:Word);
+            Procedure DelFila(F:Word);
+            Procedure DelColumna(C:Word);
+            Function SumarElementos:Real;
+            function VectorPosF(p: word): word;
+            function VectorPosC(p: word): word;
+            function VectorPos(f, c: word): word;
+            procedure intercambiar(i, j, k, l: word);
+            function getNumMenBin: word;
+            function sumaNumerosPre(p: word): real;
+            procedure llenarFiboForma1;
+            procedure llenarFiboForma2;
+            function getNumMayorFilaColuma: real;
+
+            function pivote(i, f: word): word;
+            procedure qsort(i, f: word);
+            procedure quickSort;
+            procedure ordenarIndependienteColumna;
+            procedure BubbleSortColumna(colu: word);
+
+            procedure llenarFormaImpar;
+            procedure llenarEnFormaSDiagonal;
+
+
+            //matriz chars
+            Procedure ModElementChar(F,C:Word; E:char);
+            function ObtElementChar(F, C: word): char;
+            function existePal(s: string): boolean;
+            function interseccionDigColumna: string;
+
+
+
+End;
+
+implementation
+
+
+function Matriz.interseccionDigColumna: string;
+var res: string;
+    con: set of 1..9;
+    sets: array[1..Nf] of set of 1..9;
+    i, j, valor, k: integer;
+begin
+  res:='';
+  for j := 1 to NroColumnas do begin
+    for i := 1 to NroFilas do begin
+      sets[i] := [];
+      valor := trunc(Celdas[i, j]);
+      while valor > 0 do begin
+        sets[i] := sets[i] + [valor mod 10];
+        valor := valor div 10;
+      end;
+    end;
+    con := sets[1];
+    for k := 1 to NroFilas do begin
+      con := con * sets[k];
+    end;
+    for k := 0 to 9 do begin
+        if k in con then res := res + intToStr(k);
+      end;
+      res := res + ', ';
+  end;
+  res := res+ Inttostr(nrocolumnas);
+  result := res;
+end;
+
+
+procedure Matriz.llenarEnFormaSDiagonal;
+var i, j, t, restart: Integer;
+    b: boolean;
+begin
+   i := 1;
+   j := 1;
+   b := true;
+   t := 1;
+   restart := 1;
+   while (i<>NroFilas) or (j<>NroColumnas) do begin
+      if b then begin
+        while (i>=1) and (j<=NroColumnas) do begin
+          Celdas[i, j] := t;
+          t := t + 1;
+          i := i - 1;
+          j := j + 1;
+        end;
+
+      end else begin
+        while (j>=1) and (i<=NroFilas) do begin
+          Celdas[i, j] := t;
+          t := t + 1;
+          i := i + 1;
+          j := j - 1;
+        end;
+      end;
+      b := not b;
+      if i > NroFilas then begin
+        i := NroFilas;
+        restart := restart + 1;
+        j := restart;
+      end;
+      if j > NroColumnas then begin
+        j := NroColumnas;
+        restart := restart + 1;
+        i := restart;
+      end;
+      if i < 1 then i := restart;
+      if j < 1 then j := restart;
+
+   end;
+   Celdas[i, j] := t;
+end;
+
+
+function myPos(sub, s: string): boolean;
+var i,j,k: integer;
+begin
+  i := 1;
+  while i <= length(s) do begin
+    if s[i] = sub[1] then begin
+      k:=i; j:=1;
+      while (j<= length(sub)) and (sub[j] = s[i]) do begin
+        i:=i+1;
+        j:=j+1;
+      end;
+      if j>length(sub) then exit(true)
+      else i := k;
+    end;
+    i := i +1;
+  end;
+
+end;
+
+function Matriz.existePal(s: string): Boolean;
+var i, j: word;
+pal, palInv: string;
+begin
+  //buscar en las filas
+  for i := 1 to NroFilas do begin
+    pal := '';
+    palInv := '';
+    for j := 1 to NroColumnas do begin
+      pal := pal + chars[i, j];
+      palInv := chars[i, j] + palInv;
+    end;
+    if myPos(s, pal) then exit(true);
+    if myPos(s, palInv)then exit(true);
+  end;
+
+  //Buscar en las columnas
+  for j := 1 to NroColumnas do begin
+    pal := '';
+    palInv := '';
+    for i := 1 to Filas do begin
+      pal := pal + chars[i, j];
+      palInv := chars[i, j] + palInv;
+    end;
+    if myPos(s, pal) then exit(true);
+    if myPos(s, palInv)then exit(true);
+  end;
+  result := false;
+end;
+
+procedure Matriz.llenarFormaImpar;
+var i, j, i1, i2, j1, j2, t: word;
+begin
+  t := 1;
+  i1 := 1;
+  i2 := NroFilas;
+  j1 := 1;
+  j2 := NroColumnas;
+  while (i1<=i2) and (j1<=j2) do begin
+      //llenar en filas
+      for j := j1 to j2 do begin
+         Celdas[i1, j] := t;
+         Celdas[i2, j] := t;
+      end;
+      i1 := i1 + 1;
+      i2 := i2 - 1;
+      //llenar en columnas
+      for i := i1 to i2 do begin
+        Celdas[i, j1] := t;
+        Celdas[i, j2] := t;
+      end;
+      j1 := j1 + 1;
+      j2 := j2 - 1;
+      t := t + 2;
+  end;
+end;
+
+
+
+
+procedure Matriz.BubbleSortColumna(colu: word);
+var i, j: word;
+begin
+  for i:=1 to NroFilas do begin
+    for j:=1 to NroFilas-i do begin
+      if celdas[j, colu]<celdas[j+1, colu] then intercambiar(j, colu, j+1, colu);
+    end;
+  end;
+end;
+
+
+
+procedure Matriz.ordenarIndependienteColumna;
+var j: word;
+begin
+  for j := 1 to NroColumnas do BubbleSortColumna(j);
+end;
+
+
+function Matriz.getNumMayorFilaColuma: Real;
+var i, j: word;
+n1, n2, k, may: real;
+begin
+  may := 0;
+  //buscar en las filas
+  for i := 1 to NroFilas do begin
+    k := 1;
+    n1 := 0;
+    n2 := 0;
+    for j := 1 to NroColumnas do begin
+      n1 := n1 * 10 + Celdas[i,j];
+      n2 := celdas[i, j] * k + n2;
+      k := k * 10;
+    end;
+    if n1 > may then may := n1;
+    if n2 > may then may := n2;
+  end;
+
+  //buscar en las columnas
+  for j := 1 to NroColumnas do begin
+    K := 1;
+    n1 := 0;
+    n2 := 0;
+    for i := 1 to NroFilas do begin
+      n1 := n1 * 10 + Celdas[i,j];
+      n2 := celdas[i, j] * k + n2;
+      k := k * 10;
+    end;
+    if n1 > may then may := n1;
+    if n2 > may then may := n2;
+  end;
+  result := may;
+end;
+
+
+function BinToDec(n: word): word;
+var num, p: word;
+begin
+  p := 1;
+  num := 0;
+  while n <>0 do begin
+    num := num + p*(n mod 10);
+    n := n div 10;
+    p := p * 2;
+  end;
+  result := num;
+end;
+
+procedure Matriz.llenarFiboForma1;
+var i, j: word;
+fib, ant, ant2: real;
+begin
+  ant := 0;
+  ant2 := 1;
+  for i := 1 to NroFilas do begin
+    for j := 1 to NroColumnas do begin
+      fib := ant + ant2;
+      ant2 := ant;
+      ant := fib;
+      Celdas[i, j] := fib;
+    end;
+  end;
+end;
+
+procedure Matriz.llenarFiboForma2;
+var i, j: word;
+fib, ant, ant2: real;
+b: boolean;
+begin
+  ant := 0;
+  ant2 := 1;
+  b := true;
+  for i := NroFilas downto 1 do begin
+
+    if b then begin
+      for j := NroColumnas downto 1 do begin
+        fib := ant + ant2;
+        ant2 := ant;
+        ant := fib;
+        Celdas[i, j] := fib;
+      end;
+      b := false;
+    end else begin
+      for j := 1 to NroColumnas do begin
+        fib := ant + ant2;
+        ant2 := ant;
+        ant := fib;
+        Celdas[i, j] := fib;
+      end;
+      b := true;
+    end;
+  end;
+end;
+
+function Matriz.getNumMenBin: word;
+var i, j: word;
+num, men: real;
+begin
+  men := 999999;
+ // for j := 1 to NroColumnas do men := men * 10 + celdas[1, j];
+
+  for i := 1 to NroFilas do begin
+    num := 0;
+    for j := 1 to NroColumnas do begin
+       num := num*10 + Celdas[i, j];
+    end;
+    if num < men then men := num;
+  end;
+  result := BinToDec(trunc(men));
+end;
+
+
+function Matriz.sumaNumerosPre(p: word): real;
+var i, j: word;
+num, suma, pot: real;
+begin
+  suma := 0;
+  for i := 1 to NroFilas do begin
+    num := 0;
+    for j := 1 to NroColumnas do begin
+       num := num*10 + Celdas[i, j];
+    end;
+    suma := suma + num;
+  end;
+  pot := power(10, p);
+  result := suma/pot;
+end;
+
+
+procedure Matriz.AddColumna;
+begin
+     Inc(NroColumnas);
+
+end;
+
+procedure Matriz.AddFila;
+begin
+     Inc(NroFilas);
+
+end;
+
+function Matriz.Columnas: Word;
+begin
+     Result:=NroColumnas;
+end;
+
+procedure Matriz.DelColumna(C: Word);
+begin
+  //implementar
+end;
+
+procedure Matriz.DelFila(F: Word);
+var
+  I: Word;
+  j: Integer;
+begin
+     if (F>0)And(F<=NroFilas) then
+     Begin
+      for I := F to NroFilas-1 do
+        for j := 1 to NroColumnas do
+          Celdas[i,j]:=Celdas[i+1,j];
+      Dec(NroFilas);
+     End
+     Else raise Exception.Create('Fila Invalida');
+end;
+
+function Matriz.Filas: Word;
+begin
+     Result:=NroFilas;
+end;
+
+procedure Matriz.InsColumna(C: Word);
+begin
+   //implementar
+end;
+
+procedure Matriz.InsFila(F: Word);
+var
+  I: Word;
+  J: Integer;
+begin
+      if (F>0)And(F<=NroFilas) then
+     Begin
+          Inc(NroFilas);
+          for I := NroFilas downto F+1 do
+             for J := 1 to NroColumnas do
+                 Celdas[I,J]:=Celdas[I-1,J];
+     End
+     Else raise Exception.Create('Columna Invalida');
+
+end;
+
+procedure Matriz.ModElement(F, C: Word; E: Real);
+begin
+     if (F>0)And(F<=NroFilas) And(C>0)And(C<=NroColumnas) then
+         Celdas[F,C]:=E
+     Else raise Exception.Create('Posicion Invalida');
+end;
+
+procedure Matriz.ModElementChar(F, C: Word; E: char);
+begin
+     if (F>0)And(F<=NroFilas) And(C>0)And(C<=NroColumnas) then
+         Chars[F,C]:=E
+     Else raise Exception.Create('Posicion Invalida');
+end;
+
+function Matriz.ObtElement(F, C: Word): Real;
+begin
+     if (F>0)And(F<=NroFilas) And(C>0)And(C<=NroColumnas) then
+         Result:=Celdas[F,C]
+     Else raise Exception.Create('Posicion Invalida');
+end;
+
+function Matriz.ObtElementChar(F, C: word): char;
+begin
+     if (F>0)And(F<=NroFilas) And(C>0)And(C<=NroColumnas) then
+         Result:=chars[F,C]
+     Else raise Exception.Create('Posicion Invalida');
+end;
+
+procedure Matriz.Redimensionar(NF, NC: Word);
+begin
+     NroFilas:=NF;
+     NroColumnas:=NC;
+end;
+
+function Matriz.SumarElementos: Real;
+var
+  I,J: Integer;
+  Suma : Real;
+begin
+    Suma:=0;
+     for I := 1 to NroFilas do
+        for J := 1 to NroColumnas do
+            Suma:=Suma+Celdas[i,j];
+     Result:=Suma;
+end;
+
+
+//para trabajar con ordenamiento vector
+function Matriz.VectorPos(f, c: word): word;
+begin
+  result := (f-1)*NroColumnas+c;
+end;
+
+function Matriz.VectorPosC(p: word): word;
+begin
+  result:=((p-1) mod NroColumnas)+1;
+end;
+
+function Matriz.VectorPosF(p: word): word;
+begin
+  result := ((p-1) div NroColumnas)+1;
+end;
+
+
+
+procedure Matriz.intercambiar(i, j, k, l: word);
+var x: real;
+begin
+  x:=Celdas[i, j];
+  Celdas[i, j]:=Celdas[k, l];
+  Celdas[k, l]:=x;
+end;
+
+
+function Matriz.pivote(i, f: word): word;
+var t: boolean;
+p: word;
+begin
+  t := true;
+  repeat
+    if celdas[VectorPosF(i), VectorPosC(i)] > celdas[VectorPosF(f), VectorPosC(f)] then begin
+      intercambiar(VectorPosF(i), VectorPosC(i), VectorPosF(f), VectorPosC(f));
+      t := not t;
+    end;
+    if t then i:=i+1
+    else f := f-1;
+  until i = f;
+  p := i;
+  result := p;
+end;
+
+
+procedure Matriz.qsort(i, f: word);
+var n, p: word;
+begin
+   n := f - i + 1;
+   if n>1 then begin
+      p := pivote(i, f);
+      qsort(i, p-1);
+      qsort(p+1, f);
+   end;
+end;
+procedure Matriz.quickSort;
+begin
+   qsort(1, NroFilas*NroColumnas);
+end;
+
+
+
+
+
+
+end.
+

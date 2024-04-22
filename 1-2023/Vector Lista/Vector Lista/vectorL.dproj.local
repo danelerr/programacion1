@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/07/08 12:58:04.000.289,=D:\RAD Studio\Unit1.pas</Transaction>
+    <Transaction>2023/07/08 13:04:58.000.912,D:\clases_inf120\vector\vectorl\interx.pas=D:\RAD Studio\Unit1.pas</Transaction>
+    <Transaction>2023/07/08 13:04:58.000.912,D:\clases_inf120\vector\vectorl\interx.dfm=D:\RAD Studio\Unit1.dfm</Transaction>
+    <Transaction>2023/07/08 13:05:14.000.471,D:\clases_inf120\vector\vectorl\vectorL.dproj=D:\RAD Studio\Project1.dproj</Transaction>
+    <Transaction>2023/07/08 13:10:09.000.709,=D:\clases_inf120\vector\vectorl\Unit1.pas</Transaction>
+    <Transaction>2023/07/08 13:22:34.000.958,D:\clases_inf120\vector\vectorl\codev.pas=D:\clases_inf120\vector\vectorl\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,95 @@
+unit interx;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.Menus, Vcl.StdCtrls,codev;
+
+type
+  TForm1 = class(TForm)
+    vec: TStringGrid;
+    MainMenu1: TMainMenu;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Edit1: TEdit;
+    Opciones1: TMenuItem;
+    Opciones2: TMenuItem;
+    buscan1: TMenuItem;
+    Edit2: TEdit;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Opciones2Click(Sender: TObject);
+    procedure buscan1Click(Sender: TObject);
+  private
+    { Private declarations }
+   v: vector;
+    l : lista;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.buscan1Click(Sender: TObject);
+begin
+     ShowMessage( v.buscarn(strtoint(edit2.text)));
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+   vec.RowCount:= strtoint(edit1.text)+1;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  I: Integer;
+begin
+     V.redim(vec.RowCount-1);
+     for I := 1 to V.getd do
+     Begin
+          l:=lista.Create;
+          l.setNombre(vec.Cells[0,i]);
+          l.setnumero(strtoint(vec.Cells[1,i]));
+         // l.setrecorrido(strtoint(vec.Cells[2,i]));
+          v.mode(i,l);
+     End;
+
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  I: Integer;
+begin
+     vec.RowCount:=V.getd+1;
+     for I := 1 to V.getd do
+     Begin
+        vec.Cells[0,i]:=V.getV(i).getNombre;
+        vec.Cells[1,i]:=inttostr(V.getV(i).getnumero);
+      //  vec.Cells[2,i]:=inttostr(V.getV(i).getrecorrido);
+     End;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  v:=vector.Create;
+  l:=lista.Create;
+    Vec.Cells[0,0]:='Nombre';
+    vec.Cells[1,0]:='numero';
+    vec.Cells[2,0]:='Recorrido';
+end;
+
+procedure TForm1.Opciones2Click(Sender: TObject);
+begin
+  ShowMessage( v.mayrecorrido);
+end;
+
+end.

@@ -1,0 +1,140 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 564
+  ClientWidth = 1014
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 19
+  object Label1: TLabel
+    Left = 744
+    Top = 176
+    Width = 46
+    Height = 19
+    Caption = 'Label1'
+  end
+  object StringGrid1: TStringGrid
+    Left = 24
+    Top = 25
+    Width = 961
+    Height = 56
+    ColCount = 1
+    DefaultColWidth = 100
+    DefaultRowHeight = 50
+    FixedCols = 0
+    RowCount = 1
+    FixedRows = 0
+    GridLineWidth = 5
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    TabOrder = 0
+  end
+  object ScrollBar1: TScrollBar
+    Left = 24
+    Top = 95
+    Width = 961
+    Height = 18
+    Max = 1024
+    Min = 1
+    PageSize = 0
+    Position = 1
+    TabOrder = 1
+    OnChange = ScrollBar1Change
+  end
+  object Button1: TButton
+    Left = 728
+    Top = 272
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object MainMenu1: TMainMenu
+    Left = 56
+    Top = 248
+    object Metodos1: TMenuItem
+      Caption = 'Metodos'
+      object Cargaaleatoria1: TMenuItem
+        Caption = 'Carga aleatoria'
+        OnClick = Cargaaleatoria1Click
+      end
+      object CargarVector1: TMenuItem
+        Caption = 'Cargar Vector'
+        OnClick = CargarVector1Click
+      end
+      object MostrarVector1: TMenuItem
+        Caption = 'Mostrar Vector'
+        OnClick = MostrarVector1Click
+      end
+      object Promedio1: TMenuItem
+        Caption = 'Promedio'
+        OnClick = Promedio1Click
+      end
+      object BusquedaSecuencial1: TMenuItem
+        Caption = 'Busqueda Secuencial'
+        OnClick = BusquedaSecuencial1Click
+      end
+      object Busquedabinaria1: TMenuItem
+        Caption = 'Busqueda binaria'
+        OnClick = Busquedabinaria1Click
+      end
+      object Ordenamientoporintercambio1: TMenuItem
+        Caption = 'Ordenamiento por intercambio'
+        OnClick = Ordenamientoporintercambio1Click
+      end
+      object Bubblesort1: TMenuItem
+        Caption = 'Bubble sort'
+        OnClick = Bubblesort1Click
+      end
+      object Insertionsort1: TMenuItem
+        Caption = 'Insertion sort'
+        OnClick = Insertionsort1Click
+      end
+      object Slectionsort1: TMenuItem
+        Caption = 'Selection sort'
+        OnClick = Slectionsort1Click
+      end
+      object ShellSort1: TMenuItem
+        Caption = 'Shell Sort'
+        OnClick = ShellSort1Click
+      end
+      object MergeSort1: TMenuItem
+        Caption = 'MergeSort'
+        OnClick = MergeSort1Click
+      end
+      object QuickSort1: TMenuItem
+        Caption = 'Quick Sort'
+        OnClick = QuickSort1Click
+      end
+      object Ordenardeparaimpar1: TMenuItem
+        Caption = 'Intercalar par e impar (ordenado)'
+        OnClick = Ordenardeparaimpar1Click
+      end
+      object OrdenardeParaImpar2: TMenuItem
+        Caption = 'Ordenar de Par a Impar'
+        OnClick = OrdenardeParaImpar2Click
+      end
+      object CargarNombres1: TMenuItem
+        Caption = 'Cargar Nombres'
+        OnClick = CargarNombres1Click
+      end
+      object MostrarNombres1: TMenuItem
+        Caption = 'Mostrar Nombres'
+        OnClick = MostrarNombres1Click
+      end
+      object QuickSortNombres1: TMenuItem
+        Caption = 'Quick Sort Nombres'
+        OnClick = QuickSortNombres1Click
+      end
+    end
+  end
+end

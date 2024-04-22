@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/04/05 08:30:31.000.882,=C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/05/21 21:18:25.000.449,=C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/05/21 21:18:51.000.156,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Samsung\Desktop\prueba proyecto\Unit1.pas</Transaction>
+    <Transaction>2023/05/21 21:18:51.000.156,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Samsung\Desktop\prueba proyecto\Unit1.dfm</Transaction>
+    <Transaction>2023/05/21 21:18:55.000.490,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Samsung\Desktop\prueba proyecto\Project1.dproj</Transaction>
+    <Transaction>2023/05/21 21:40:31.000.312,=C:\Users\Samsung\Desktop\prueba proyecto\Unit2.pas</Transaction>
+    <Transaction>2023/05/21 21:40:37.000.448,C:\Users\Samsung\Desktop\prueba proyecto\UBarra.pas=C:\Users\Samsung\Desktop\prueba proyecto\Unit2.pas</Transaction>
+    <Transaction>2023/05/21 21:58:36.000.525,=C:\Users\Samsung\Desktop\prueba proyecto\Unit2.pas</Transaction>
+    <Transaction>2023/05/21 21:58:41.000.761,C:\Users\Samsung\Desktop\prueba proyecto\UBola.pas=C:\Users\Samsung\Desktop\prueba proyecto\Unit2.pas</Transaction>
+    <Transaction>2023/05/21 22:10:54.000.327,=C:\Users\Samsung\Desktop\prueba proyecto\AudioManager.pas</Transaction>
+  </Transactions>
+</BorlandProject>

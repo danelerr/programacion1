@@ -1,0 +1,152 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Numeros'
+  ClientHeight = 441
+  ClientWidth = 624
+  Color = clWhite
+  CustomTitleBar.CaptionAlignment = taCenter
+  Ctl3D = False
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 48
+    Top = 24
+    Width = 60
+    Height = 15
+    Caption = 'Digite Valor'
+  end
+  object Label2: TLabel
+    Left = 56
+    Top = 160
+    Width = 7
+    Height = 32
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 48
+    Top = 64
+    Width = 45
+    Height = 15
+    Caption = 'Posicion'
+  end
+  object Label4: TLabel
+    Left = 48
+    Top = 88
+    Width = 32
+    Height = 15
+    Caption = 'Digito'
+  end
+  object Edit1: TEdit
+    Left = 120
+    Top = 21
+    Width = 121
+    Height = 21
+    TabOrder = 0
+  end
+  object Edit2: TEdit
+    Left = 120
+    Top = 56
+    Width = 121
+    Height = 21
+    TabOrder = 1
+  end
+  object Edit3: TEdit
+    Left = 120
+    Top = 85
+    Width = 121
+    Height = 21
+    TabOrder = 2
+  end
+  object MainMenu1: TMainMenu
+    Left = 320
+    Top = 168
+    object Metodos1: TMenuItem
+      Caption = 'Metodos'
+      object CambiarValor1: TMenuItem
+        Caption = 'Cambiar Valor'
+        OnClick = CambiarValor1Click
+      end
+      object CambiarValor2: TMenuItem
+        Caption = 'Obtener Valor'
+        OnClick = CambiarValor2Click
+      end
+      object Numerodedigitos1: TMenuItem
+        Caption = 'Numero de digitos'
+        OnClick = Numerodedigitos1Click
+      end
+      object Numerodedigitos2: TMenuItem
+        Caption = 'Insertar digito'
+        OnClick = Numerodedigitos2Click
+      end
+      object Eeliminardigito1: TMenuItem
+        Caption = 'Eeliminar digito'
+      end
+      object Nuevometodo1: TMenuItem
+        Caption = 'Remplazar digito'
+        OnClick = Nuevometodo1Click
+      end
+      object Exstenumero1: TMenuItem
+        Caption = 'Exste numero'
+        OnClick = Exstenumero1Click
+      end
+      object Invertir1: TMenuItem
+        Caption = 'Invertir'
+        OnClick = Invertir1Click
+      end
+      object E1: TMenuItem
+        Caption = 'Eliminar ceros'
+        OnClick = E1Click
+      end
+      object Ordenr1: TMenuItem
+        Caption = 'Ordenar Descendente'
+        OnClick = Ordenr1Click
+      end
+      object Ordenaradentroafuera1: TMenuItem
+        Caption = 'Ordenar adentro afuera'
+        OnClick = Ordenaradentroafuera1Click
+      end
+      object abasen1: TMenuItem
+        Caption = 'a base n'
+        OnClick = abasen1Click
+      end
+      object basenabase101: TMenuItem
+        Caption = 'base n a base 10'
+        OnClick = basenabase101Click
+      end
+      object Obtenerenhexadecimal1: TMenuItem
+        Caption = 'Obtener en hexadecimal'
+        OnClick = Obtenerenhexadecimal1Click
+      end
+      object Hexadecimaladecimal1: TMenuItem
+        Caption = 'Hexadecimal a decimal'
+        OnClick = Hexadecimaladecimal1Click
+      end
+      object Eliminaryreemplazarsubnum1: TMenuItem
+        Caption = 'Eliminar y reemplazar sub num'
+        OnClick = Eliminaryreemplazarsubnum1Click
+      end
+      object segundomayordigito1: TMenuItem
+        Caption = 'segundo mayor digito'
+        OnClick = segundomayordigito1Click
+      end
+      object Separcen1: TMenuItem
+        Caption = 'Se parcen'
+        OnClick = Separcen1Click
+      end
+    end
+  end
+end

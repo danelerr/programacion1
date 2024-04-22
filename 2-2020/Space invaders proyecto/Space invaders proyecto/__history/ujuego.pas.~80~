@@ -1,0 +1,142 @@
+unit ujuego;
+
+interface
+uses Vcl.Graphics, system.sysutils;
+
+type
+ TBala = class
+  private
+   w, h: word;
+  public
+   Top: word;
+   Left: word;
+   textura: TBitMap;
+   property Width: word read w;
+   property Height: word read h;
+   constructor Create(tipo: byte);
+end;
+
+
+type
+ personaje = class
+   nave: TBitMap;
+  protected
+   L, T, W, H: word;
+   v: byte;
+   b: TBala;
+  public
+   constructor Create(x, y: word);
+   property Top: word read T write T;
+   property Left: word read L write L;
+   property Bala: TBala read b write b;
+   property Vidas: byte read v write v;
+   property Width: word read w;
+   property Height: word read h;
+   procedure mover(d: byte);
+   procedure cargarTextura; virtual;
+   procedure disparar; virtual;
+end;
+
+
+
+type
+ enemigo = class(personaje)
+ procedure cargarTextura; override;
+ procedure disparar; override;
+end;
+
+
+
+implementation
+
+
+{ TBala }
+
+constructor TBala.Create(tipo: byte);
+begin
+  textura := TBitMap.Create;
+  case tipo of //1 = el usuario | 2 = los enemigos
+    1: textura.LoadFromFile('balas\bala.bmp');
+    2: textura.LoadFromFile('balas\balaenemiga.bmp');
+  end;
+  textura.Transparent := true;
+  textura.TransparentColor := textura.Canvas.pixels[1, 1];
+  textura.TransparentMode := tmAuto;
+  w := textura.Width;
+  h := textura.Height;
+end;
+
+
+{ personaje }
+
+constructor personaje.Create(x, y: word);
+begin
+  L := x;
+  T := y;
+  nave := TBitMap.Create;
+end;
+
+
+procedure personaje.mover(d: byte);
+begin
+  //1 = izquierda | 2 = derecha | 3 = arriba | 4 = abajo
+  case d of
+   1: l := l - 10;
+   2: l := l + 10;
+   3: t := t - 10;
+   4: t := t + 10;
+  end;
+end;
+
+
+procedure personaje.cargarTextura;
+begin
+  b := TBala.Create(1);
+  nave.LoadFromFile('nave.bmp');
+  nave.Transparent := true;
+  nave.TransparentColor := nave.Canvas.pixels[1, 1];
+  nave.TransparentMode := tmAuto;
+  w := nave.Width;
+  h := nave.Height;
+end;
+
+
+
+procedure personaje.disparar;
+begin
+  b.Top := b.Top - 20;
+end;
+
+
+
+
+{ enemigo }
+
+
+procedure enemigo.cargarTextura;
+begin
+    b := TBala.Create(2);
+    randomize;
+    case random(8) of
+     0: nave.LoadFromFile('enemigos\bugrojo.bmp');
+     1: nave.LoadFromFile('enemigos\bugamarillo.bmp');
+     2: nave.LoadFromFile('enemigos\bugazul.bmp');
+     3: nave.LoadFromFile('enemigos\bugceleste.bmp');
+     4: nave.LoadFromFile('enemigos\bugnaranja.bmp');
+     5: nave.LoadFromFile('enemigos\buggris.bmp');
+     6: nave.LoadFromFile('enemigos\bugverde.bmp');
+     7: nave.LoadFromFile('enemigos\bugrosa.bmp');
+    end;
+    nave.Transparent := true;
+    nave.TransparentColor := nave.Canvas.pixels[1, 1];
+    nave.TransparentMode := tmAuto;
+    w := nave.Width;
+    h := nave.Height;
+end;
+
+procedure enemigo.disparar;
+begin
+  b.Top := b.Top + 10;
+end;
+
+end.

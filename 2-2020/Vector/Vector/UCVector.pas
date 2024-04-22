@@ -1,0 +1,712 @@
+unit UCVector;
+
+interface
+Uses SysUtils;
+
+Const
+    MaxE = 1024;
+
+Type
+    Vector = Class
+      Private
+             Dimension: Word;
+             Elementos: Array[1..MaxE] of Real;
+           //vector string
+             DimensionNombres: word;
+             Nombres: array[1..MaxE] of string;
+
+             procedure merge(i, m, f: word);
+            //procedure merge(a, b, c: word);
+             procedure msort(i, f: word);
+//             procedure msort(a, b: word);
+//             procedure media(a, b: word; var c: word);
+             procedure media(i, f: word; var p: word);
+             procedure qsort(a, b: word);
+             function esPar(e: real): boolean;
+      Public
+             Function Dim : Word;
+             Procedure Dimensionar(D:Word);
+             Procedure AddElement(e:Real);
+             Procedure ModElement(p:word;e:Real);
+             Procedure InsElement(p:word;e:Real);
+             Procedure DelElement(p:word);
+             Function getElement(p:word):Real;
+             Function getAVG:Real; //promedio de elemntos
+             Function getMax:Real; //elemento mayor
+             Function NumElement(e:Real):Word; //cuantas veces se repite e
+             Function BusquedaSecuencial(e: Real): Word;
+             function BusquedaBinaria(e: real): word; //binary search
+             Procedure OrdenacionIntercambio;
+             Procedure Intercambiar(i, j: Word);
+             procedure selectionSort;
+             procedure insertionSort;
+             procedure bubbleSort;
+             procedure sellSort;
+             procedure mergeSort;
+             procedure quickSort;
+             procedure intercalarParEImpar; //Intercalado y ordenado
+             procedure ordenarDeParAImpar; //primero par, luego impar
+          //functiones del vector string
+             function DimNombre: word;
+             procedure DimensionarNombre(n: word);
+             function getNombre(p: word): string;
+             procedure ModNombre(p: word; n: string);
+             Procedure DelNombre(p:word);
+             procedure intercambiarNombres(i, j: Word);
+             procedure eliminarSubCad(sub: string);
+             procedure BubbleSort2;
+             procedure acomodarPorPrimos;
+
+    End;
+    function esPrimo(n: real): boolean;
+
+implementation
+
+{ Vector }
+
+
+procedure Vector.AddElement(e: Real);
+begin
+   Inc(Dimension);
+   Elementos[Dimension]:=e;
+end;
+
+function Vector.BusquedaSecuencial(e: Real): Word;
+var i: Word;
+begin
+  i:=1;
+  while (i<=Dimension) And (Elementos[i]<>e) do inc(i);
+  Result:=(i mod (dimension+1));
+end;
+
+
+function Vector.BusquedaBinaria(e: real): word;
+var p, a, b, c: word;
+begin
+  p:=1;
+  a:=1;
+  b:=Dimension;
+  while (a<=b) and (Elementos[p]<>e) do begin
+   c:=(a+b) div 2;
+   if Elementos[c]=e then p:=c
+   else if e<Elementos[c] then b:=c-1
+   else a:=c+1;
+  end;
+  if Elementos[p]<>e then result:=0
+  else result:=p;
+end;
+
+procedure Vector.DelElement(p: word);
+var
+  I: Word;
+begin
+   if (p>0) and (p<=Dimension) then
+   begin
+     for I := P to Dimension-1 do
+        Elementos[I]:=Elementos[I+1];
+        Dec(Dimension);
+   End
+   Else raise Exception.Create('Error posicion fuera de rango');
+end;
+
+
+Procedure Vector.DelNombre(p:word);
+var I: Word;
+begin
+   if (p>0) and (p<=DimensionNombres) then
+   begin
+     for I := P to DimensionNombres-1 do
+        Nombres[I]:=Nombres[I+1];
+        Dec(DimensionNombres);
+   End
+   Else raise Exception.Create('Error posicion fuera de rango');
+end;
+function Vector.Dim: Word;
+begin
+   Result:=Dimension;
+end;
+
+function Vector.DimNombre;
+begin
+  result := DimensionNombres;
+end;
+
+procedure Vector.Dimensionar(D: Word);
+begin
+   Dimension:=D;
+end;
+
+procedure Vector.DimensionarNombre(n: word);
+begin
+  DimensionNombres := n;
+end;
+
+function Vector.getAVG: Real;
+Var I : Word;
+S : Real;
+begin
+   if Dimension>0 then
+   Begin
+     S:=0;
+     for I := 1 to Dimension do S:=S+Elementos[I];
+     Result:= S /  Dimension;
+   End
+   Else raise Exception.Create('Error vector vacio');
+end;
+
+function Vector.getElement(p: word): Real;
+begin
+    if (p>0) and (p<=Dimension) then
+    Begin
+     Result:=Elementos[p];
+    End
+    else raise Exception.Create('Error posicion fuera de rango');
+end;
+
+function Vector.getNombre(p: word): string;
+begin
+    if (p>0) and (p<=DimensionNombres) then
+    Begin
+     Result:=Nombres[p];
+    End
+    else raise Exception.Create('Error posicion fuera de rango');
+end;
+function Vector.getMax: Real;
+Var May : Real;
+I: Integer;
+begin
+     if Dimension>0 then
+     Begin
+         May:=Elementos[1];
+         for I := 2 to Dimension do
+             if Elementos[I]>May then
+                May:=Elementos[I];
+         Result:=May;
+     End
+     Else raise Exception.Create('Error vector vacio');
+end;
+
+procedure Vector.InsElement(p: word; e: Real);
+var
+  I: Word;
+begin
+      if (p>0) and (p<=Dimension) then
+     Begin
+          Inc(Dimension);
+          for I := Dimension downto p+1 do
+              Elementos[I]:=Elementos[I-1];
+          Elementos[p]:=e;
+     End
+     Else raise Exception.Create('Error posicion fuera de rango');
+end;
+
+procedure Vector.Intercambiar(i, j: Word);
+Var aux : Real;
+begin
+  aux:=Elementos[i];
+  Elementos[i]:=Elementos[j];
+  Elementos[j]:=aux;
+end;
+
+{
+procedure Vector.merge(a, b, c: word);
+var i, j, k: word;
+vt: array[1..MaxE] of real;
+begin
+  i:=a; j:=c+1; k:=1;
+  while (i<=c) and (j<=b) do begin
+    if Elementos[i]<Elementos[j] then begin
+      vt[k] := Elementos[i];
+      i:=i+1;
+    end else begin
+      vt[k] := Elementos[j];
+      j:=j+1;
+    end;
+    k := k + 1;
+  end;
+
+  while i<=c do begin
+    vt[k] := Elementos[i];
+    i:=i+1;
+    k := k + 1;
+  end;
+
+  while j<=b do begin
+    vt[k] := Elementos[j];
+    j:=j+1;
+    k := k + 1;
+  end;
+
+  k:=1;
+  for i := a to b do begin
+    elementos[i] := vt[k];
+    k:=k+1;
+  end;
+
+end;
+ }
+
+
+procedure Vector.merge(i, m, f: word);
+var
+  ia, j, pi: word;
+  vt: array[1..MaxE] of real;
+begin
+  j := m+1;
+  ia := 1;
+  pi := i;
+  while (i<=m) and (j<=f) do begin
+    if Elementos[i]<Elementos[j] then begin
+      vt[ia] := Elementos[i];
+      i:=i+1;
+    end else begin
+      vt[ia] := Elementos[j];
+      j:=j+1;
+    end;
+    ia:=ia+1;
+  end;
+
+  while i<=m do begin
+    vt[ia] := Elementos[i];
+    i := i+1;
+    ia := ia+1;
+  end;
+
+
+  while j<=f do begin
+    vt[ia] := Elementos[j];
+    j := j+1;
+    ia := ia+1;
+  end;
+
+
+  ia := 1;
+  for i:=pi to f do begin
+    Elementos[i] := vt[ia];
+    ia := ia+1;
+  end;
+end;
+
+
+{
+procedure Vector.msort(a, b: word);
+var c: word;
+begin
+  if b>a then begin
+    c := (a+b) div 2;
+    msort(a, c);
+    msort(c+1, b);
+    merge(a, b, c);
+  end;
+end;
+}
+
+procedure Vector.msort(i, f: word);
+var m: word;
+begin
+  if i<f then begin
+    m := (f+i) div 2;
+    msort(i, m);
+    msort(m+1, f);
+    merge(i, m, f);
+  end;
+end;
+
+
+procedure Vector.mergeSort;
+begin
+  msort(1, Dimension);
+end;
+
+procedure Vector.ModElement(p: word; e: Real);
+begin
+     if (p>0) and (p<=Dimension) then
+     Begin
+          Elementos[p]:=e;
+     End
+     Else raise Exception.Create('Error posicion fuera de rango');
+end;
+
+procedure Vector.ModNombre(p: word; n: string);
+begin
+   if (p>0) and (p<=DimensionNombres) then
+   Begin
+     Nombres[p]:=n;
+   End
+   Else raise Exception.Create('Error posicion fuera de rango');
+end;
+
+function Vector.NumElement(e: Real): Word;
+var
+  I,c: Integer;
+begin
+     c:=0;
+     for I := 1 to Dimension do
+        if Elementos[I]=e then
+           c:=c+1;
+     Result:=c;
+end;
+
+procedure Vector.OrdenacionIntercambio;
+var
+  I: Integer;
+  J: Integer;
+begin
+     for I := 1 to Dimension-1 do
+         for J := i+1 to Dimension do
+             if Elementos[i]>Elementos[j] Then
+                Intercambiar(i,j);
+end;
+
+{
+procedure Vector.media(a, b: word; var c: word);
+var i, j: word;
+x: boolean;
+begin
+ i:=a;
+ j:=b;
+ x := true;
+ repeat
+  if Elementos[i]>Elementos[j] then begin
+    intercambiar(i, j);
+    x := not x;
+  end;
+  if x then i:=i+1
+  else j:=j-1;
+ until j=i;
+ c:=i;
+end;
+
+   }
+procedure Vector.media(i, f: word; var p: word);
+var turno: boolean;
+begin
+  turno := true;
+  repeat
+    if Elementos[i]>Elementos[f] then begin
+      intercambiar(i, f);
+      turno := not turno;
+    end;
+    if turno then i:=i+1
+    else f:=f-1;
+  until i=f;
+  p := i;
+end;
+
+procedure Vector.qsort(a, b: word);
+var c, n: word;
+begin
+  n := b-a+1;
+  if n>1 then begin
+    media(a, b, c);
+    qsort(a, c-1);
+    qsort(c+1, b);
+  end;
+
+end;
+
+procedure Vector.quickSort;
+begin
+  qsort(1, Dimension);
+end;
+
+procedure Vector.sellSort;
+var
+ k, i, j: word;
+ cambios: boolean;
+begin
+  k := Dimension div 2;
+  while k<>0 do begin
+    i:=1; cambios := false;
+    for  j:=k+1 to Dimension do begin
+      if Elementos[i]>Elementos[j] then begin
+        intercambiar(i, j);
+        cambios := true;
+      end;
+      i := i+1;
+    end;
+    if not cambios then k := k div 2;
+  end;
+end;
+
+
+procedure Vector.selectionSort;
+var i, j, k: word;
+begin
+  for i:=1 to Dimension do begin
+   k:=i;
+   for j:=i+1 to Dimension do if Elementos[k]>Elementos[j] then k:=j;
+   intercambiar(i, k);
+  end;
+end;
+
+
+procedure Vector.InsertionSort;
+var i, j: word;
+begin
+  for i:=1 to Dimension do begin
+    j:=i;
+    while (Elementos[j]<Elementos[j-1]) and (j>=1) do begin
+      intercambiar(j, j-1);
+      j:=j-1;
+    end;
+  end;
+end;
+
+
+procedure Vector.bubbleSort;
+var i, j: word;
+begin
+  for i:=1 to Dimension do begin
+   for j:=1 to Dimension-1 do begin
+     if Elementos[j]>Elementos[j+1] then intercambiar(j, j+1);
+   end;
+  end;
+end;
+
+
+
+function Vector.esPar(e: real): boolean;
+begin
+  result:= trunc(e) mod 2 = 0;
+end;
+
+procedure Vector.intercalarParEImpar;
+var par: boolean;
+i, j: cardinal;
+begin
+  par := true;
+  for i:=1 to Dimension do begin
+   j:=i+1;
+   if par then begin
+     while (not esPar(Elementos[i]))and(j<=Dimension) do begin
+      if esPar(Elementos[j]) then begin
+       InsElement(i, Elementos[j]);
+       DelElement(j+1);
+      end;
+      j:=j+1;
+     end;
+   end else begin;
+     while (esPar(Elementos[i])) and(j<=Dimension) do begin
+      if (not esPar(Elementos[j])) then begin
+       InsElement(i, Elementos[j]);
+       DelElement(j+1);
+      end;
+      j:=j+1;
+     end;
+   end;
+   par := not par;
+  end;
+end;
+
+procedure Vector.ordenarDeParAImpar;
+var v: array[1..MaxE] of real;
+i, j: word;
+begin
+ j:=1;
+  for i:=1 to Dimension do
+   if esPar(Elementos[i]) then begin
+    v[j]:=Elementos[i];
+    j:=j+1;
+   end;
+  for i:=1 to Dimension do
+   if not esPar(Elementos[i]) then begin
+    v[j]:=Elementos[i];
+    j:=j+1;
+   end;
+  for i:=1 to Dimension do Elementos[i]:=v[i];
+end;
+
+
+{ EL VECTOR STRING }
+
+procedure Vector.intercambiarNombres(i, j: Word);
+Var aux : string;
+begin
+  aux:=Nombres[i];
+  Nombres[i]:=Nombres[j];
+  Nombres[j]:=aux;
+end;
+
+procedure Vector.eliminarSubCad(sub: string);
+var i: Integer;
+begin
+  i:=1;
+  while i<=DimensionNombres do begin
+   if Pos(sub, Nombres[i])>0 then DelNombre(i)
+   else i:=i+1;
+  end;
+end;
+
+
+
+
+
+
+
+{
+
+
+procedure Vector.SelectionSort1;
+var i, j, k: word;
+min, aux: real;
+begin
+  for i:=1 to Dimension do begin
+     k:=i;
+     for  j:=i+1 to Dimension do begin
+      if Elementos[k]>Elementos[j] then k:=j;
+     end;
+     intercambiar(k, i);
+  end;
+
+end;
+
+
+
+
+procedure Vector.BubbleSort1;
+var i, j: word;
+begin
+  for i:=1 to Dimension do begin
+    for j:=1 to Dimension-i do begin
+      if Elementos[j]>Elementos[j+1] then intercambiar(j, j+1);
+
+    end;
+  end;
+end;
+
+
+
+
+
+
+
+procedure Vector.mergex(i, m, f: word);
+var
+  ia, j, pi: word;
+  vt: array[1..MaxE] of real;
+begin
+  j := m+1;
+  ia := 1;
+  pi := i;
+  while (i<=m) and (j<=f) do begin
+    if Elementos[i]<Elementos[j] then begin
+      vt[ia] := Elementos[i];
+      i:=i+1;
+    end else begin
+      vt[ia] := Elementos[j];
+      j:=j+1;
+    end;
+    ia:=ia+1;
+  end;
+
+  while i<=m do begin
+    vt[ia] := Elementos[i];
+    i := i+1;
+    ia := ia+1;
+  end;
+
+
+  while j<=f do begin
+    vt[ia] := Elementos[j];
+    j := j+1;
+    ia := ia+1;
+  end;
+
+
+  ia := 1;
+  for i:=pi to f do begin
+    Elementos[i] := vt[ia];
+    ia := ia+1;
+  end;
+end;
+
+
+
+procedure Vector.msort1(i, f);
+var m: word;
+begin
+  if i<f then begin
+    m := (f+i) div 2;
+    msort1(i, m);
+    msort1(m+1, f);
+    mergex(i, m, f);
+  end;
+end;
+
+
+
+
+procedure Vector.pivotear(i, f: word; var p: word);
+var turno: boolean;
+begin
+  turno := true;
+  repeat
+    if Elementos[i]>Elementos[f] then begin
+      intercambiar(i, f);
+      turno := not turno;
+    end;
+    if turno then i:=i+1
+    else f:=f-1;
+  until i=f;
+
+end;
+
+   }
+
+
+
+
+
+procedure Vector.BubbleSort2;
+var i, j: word;
+begin
+  for i:=1 to Dimension do begin
+    for j:=1 to Dimension-i do begin
+      if Elementos[j]>Elementos[j+1] then intercambiar(j, j+1);
+    end;
+  end;
+end;
+
+
+function esPrimo(n: real): boolean;
+var c, i, m: longword;
+begin
+  c:=0; i:=2;
+  m := trunc(n) div 2;
+  while (i<=m) and (c=0) do begin
+    if trunc(n) mod i = 0 then c := c+1;
+    i:=i+1;
+  end;
+  result := (c=0) and (n<>1);
+end;
+
+procedure Vector.acomodarPorPrimos;
+var i, j, k: word;
+begin
+  //Acomodar los primos de forma ascendente
+  for i:=1 to Dimension do begin
+   k:=i;
+   while not (esPrimo(Elementos[k])) and (k<=Dimension) do k:=k+1;
+   if k<=Dimension then begin
+     for j:=k+1 to Dimension do begin
+      if (Elementos[k]>Elementos[j]) and (esPrimo(Elementos[j])) then k:=j;
+     end;
+     intercambiar(i, k);
+   end;
+  end;
+
+  //Acomodar los no primos de forma descendente
+  for i:=Dimension downto 1 do begin
+   k:=i;
+   while (esPrimo(Elementos[k])) and (k>=1) do k:=k-1;
+   if k>=1 then begin
+    for j:=k-1 downto 1 do begin
+      if (Elementos[k]>Elementos[j]) and not (esPrimo(Elementos[j])) then k:=j;
+    end;
+    intercambiar(i, k);
+   end;
+  end;
+end;
+
+end.

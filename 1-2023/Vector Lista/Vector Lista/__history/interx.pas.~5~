@@ -1,0 +1,45 @@
+unit interx;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.Menus, Vcl.StdCtrls,codev;
+
+type
+  TForm1 = class(TForm)
+    vec: TStringGrid;
+    MainMenu1: TMainMenu;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+   v: vector;
+    l : lista;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+   vec.RowCount:= vec.RowCount+1;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  v:=vector.Create;
+  l:=lista.Create;
+    Vec.Cells[0,0]:='Carrera';
+    vec.Cells[1,0]:='Materia';
+    vec.Cells[2,0]:='Nombre';
+end;
+
+end.

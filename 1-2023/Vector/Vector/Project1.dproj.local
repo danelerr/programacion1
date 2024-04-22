@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/04/05 08:30:31.000.882,=C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/05/31 14:41:32.000.635,=C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/05/31 14:46:27.000.919,=C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/05/31 14:46:45.000.590,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Samsung\Desktop\clase vector\uform.pas</Transaction>
+    <Transaction>2023/05/31 14:46:45.000.590,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Samsung\Desktop\clase vector\uform.dfm</Transaction>
+    <Transaction>2023/05/31 14:46:51.000.826,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\Samsung\Desktop\clase vector\UCVector.pas</Transaction>
+    <Transaction>2023/05/31 14:48:58.000.923,C:\Users\Samsung\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Samsung\Desktop\clase vector\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,256 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.ExtCtrls, JPEG, Vcl.StdCtrls,
+  UBarra, UBola, AudioManager, Vcl.MPlayer, UBloque;
+
+type
+  TForm1 = class(TForm)
+    TimerBarra: TTimer;
+    TimerBola: TTimer;
+    MediaPlayer1: TMediaPlayer;
+    TimerEnemigos: TTimer;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure TimerBarraTimer(Sender: TObject);
+    procedure FormDblClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
+    procedure TimerBolaTimer(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure TimerEnemigosTimer(Sender: TObject);
+  private
+    izq, der, movbola: boolean;
+    fondo: TJPEGImage;
+    barra: TBarra;
+    bola: TBola;
+    Bx, By: Integer; //bx = bola x, By = bola y
+    audio: TAudioManager;
+
+    //bloques (enemigos)
+
+    const cantEnemigos = 70;
+    var bloques: array[1..cantEnemigos] of TBloque;
+  public
+    MAXx, MAXy: word;
+
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+
+const
+  CHOQUE_PARED = 0;
+  CHOQUE_BARRA = 1;
+
+procedure TForm1.FormCreate(Sender: TObject);
+var i, j: byte;
+  xblo, yblo: word;    //x-bloque y y-bloque
+begin
+  MAXx := Screen.Width;
+  MAXy := Screen.Height;
+
+  {Creacion del fondo}
+  fondo := TJPEGImage.Create;
+  fondo.LoadFromFile('fondo.jpg');
+
+
+  {Creacion de la barra}
+  barra := TBarra.Create;
+  barra.cargarSkin('barra.bmp');
+  barra.x := (MAXx div 2) - (barra.w div 2);
+  barra.y := MAXy - 100;
+
+
+  {Cracion de la bola}
+  bola := TBola.Create;
+  bola.cargarSkin('bola.bmp');
+  bola.x := (MAXx div 2) - (bola.w div 2);
+  bola.y := MAXy - 100 - barra.h;
+  Bx := 10;
+  By := -10;
+  movbola := false;
+
+
+  {Creacion del gestor de sonido}
+  audio := TAudioManager.Create;
+  audio.AddSound('sonidos\choque_pared.wav');
+  audio.AddSound('sonidos\choque_barra.wav');
+
+
+  {Cargando la musica de fondo}
+  MediaPlayer1.FileName := 'sonidos\yoshi-final.mp3';
+  MediaPlayer1.Open;
+  MediaPlayer1.AutoRewind := true;
+//  MediaPlayer1.Play;
+
+
+  {Creacion de los bloques enemigos}
+  xblo := 300;
+  yblo := 20;
+  j := 0;
+  for i := 1 to cantEnemigos do begin
+    bloques[i] := TBloque.Create;
+    bloques[i].cargarSkin('enemigos\Amarillo.bmp');
+    bloques[i].x := xblo;
+    bloques[i].y := yblo;
+    j := j + 1;
+    xblo := xblo + 20 + bloques[i].w;
+    if j=10 then begin
+      j := 0;
+      xblo := 300;
+      yblo := yblo + 20 + bloques[i].h;
+    end;
+  end;
+end;
+
+procedure TForm1.FormDblClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case key of
+    37: izq := true;
+    39: der := true;
+    else movbola := true;
+  end;
+end;
+
+procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  case key of
+    37: izq := false;
+    39: der := false;
+  end;
+end;
+
+procedure TForm1.FormPaint(Sender: TObject);
+var i: byte;
+begin
+  {Dibujado del fondo}
+  Canvas.StretchDraw(Rect(0, 0, Screen.Width, Screen.Height), fondo);
+  {Dibujo de la barra}
+  Canvas.Draw(barra.x, barra.y, barra.skin);
+  {Dibujo de la bola}
+  Canvas.Draw(bola.x, bola.y, bola.skin);
+
+  {Dibujo de los bloques enemigos}
+  for i := 1 to cantEnemigos do begin
+    if bloques[i].activo then
+      Canvas.Draw(bloques[i].x, bloques[i].y, bloques[i].skin);
+  end;
+end;
+
+procedure TForm1.FormResize(Sender: TObject);
+begin
+  MAXx := Screen.Width;
+  MAXy := Screen.Height;
+  repaint;
+end;
+
+procedure TForm1.TimerBarraTimer(Sender: TObject);
+begin
+    if izq and (barra.x > 10) then begin
+      barra.x := barra.x - 10;
+      if not movbola then begin
+          bola.x := bola.x - 10;
+      end;
+    end;
+    if der and (barra.x + barra.w < MAXx-10) then begin
+      barra.x := barra.x + 10;
+      if not movbola then begin
+         bola.x := bola.x + 10;
+      end;
+    end;
+    repaint;
+end;
+
+procedure TForm1.TimerBolaTimer(Sender: TObject);
+begin
+  {Movimiento de la bola}
+  if movbola then begin
+    if (bola.x < 0) or (bola.x > MAXx-bola.w) then begin
+      Bx:=Bx*-1;
+      audio.PlaySound(CHOQUE_PARED);
+    end;
+    if (bola.y< 0) or (bola.y > MAXy) then begin
+      By:=By*-1;
+      audio.PlaySound(CHOQUE_PARED);
+    end;
+    if (bola.y = MAXy) then begin
+      movbola := false;
+      bola.x := barra.x + (barra.w div 2) - (bola.w div 2);
+      bola.y := MAXy - 100 - barra.h;
+      Bx := 10;
+      By := -10;
+    end else begin
+      bola.x := bola.x+Bx;
+      bola.y := bola.y+By;
+
+
+      {Colision de la bola con el laterial izquierdo}
+      if (true)
+      and (barra.x <= bola.x + bola.w)
+      and (barra.y <= bola.y + bola.h)
+      and (barra.y + barra.h >= bola.y)
+      and (bola.x + bola.w <= barra.x + 11)
+      and (bola.y + bola.h > barra.y + 11)
+      and (Bx > 0)
+      then begin
+          Bx := -10;
+
+          audio.PlaySound(CHOQUE_BARRA);
+      end;
+
+
+      {Colision de la bola con la barra}
+      if (true)
+      and (barra.x <= bola.x + bola.w)
+      and (barra.x + barra.w >= bola.x)
+      and (barra.y <= bola.y + bola.h)
+     // and (barra.y + barra.h >= bola.y)
+      and (bola.y + bola.h <= barra.y + 11)
+      then begin
+          By:=By*-1;
+          if izq then Bx := -10;
+          if der then Bx := 10;
+          audio.PlaySound(CHOQUE_BARRA);
+      end;
+    end;
+  end;
+
+
+end;
+
+procedure TForm1.TimerEnemigosTimer(Sender: TObject);
+var i: byte;
+begin
+  {Choques de la bola con los enemigos}
+  for i := 1 to cantEnemigos do begin
+      if (true)
+      and (bloques[i].x <= bola.x + bola.w)
+      and (bloques[i].x + bloques[i].w >= bola.x)
+      and (bloques[i].y <= bola.y + bola.h)
+      and (bloques[i].y + bloques[i].h >= bola.y)
+      then begin
+          By:=By*-1;
+          bloques[i].activo := false;
+          audio.PlaySound(CHOQUE_BARRA);
+      end;
+
+  end;
+end;
+
+end.

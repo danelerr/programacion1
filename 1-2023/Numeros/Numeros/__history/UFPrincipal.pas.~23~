@@ -1,0 +1,148 @@
+unit UFPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus,UCNumero, Vcl.StdCtrls;
+
+type
+  TfrmPrincipal = class(TForm)
+    MainMenu1: TMainMenu;
+    Metodos1: TMenuItem;
+    CambiarValor1: TMenuItem;
+    CambiarValor2: TMenuItem;
+    Numerodedigitos1: TMenuItem;
+    Numerodedigitos2: TMenuItem;
+    Eeliminardigito1: TMenuItem;
+    Edit1: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    Nuevometodo1: TMenuItem;
+    Exstenumero1: TMenuItem;
+    Invertir1: TMenuItem;
+    E1: TMenuItem;
+    Ordenr1: TMenuItem;
+    Ordenaradentroafuera1: TMenuItem;
+    abasen1: TMenuItem;
+    basenabase101: TMenuItem;
+    Obtenerenhexadecimal1: TMenuItem;
+    Hexadecimaladecimal1: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure CambiarValor1Click(Sender: TObject);
+    procedure CambiarValor2Click(Sender: TObject);
+    procedure Numerodedigitos1Click(Sender: TObject);
+    procedure Numerodedigitos2Click(Sender: TObject);
+    procedure Nuevometodo1Click(Sender: TObject);
+    procedure Exstenumero1Click(Sender: TObject);
+    procedure Invertir1Click(Sender: TObject);
+    procedure E1Click(Sender: TObject);
+    procedure Ordenr1Click(Sender: TObject);
+    procedure Ordenaradentroafuera1Click(Sender: TObject);
+    procedure abasen1Click(Sender: TObject);
+    procedure basenabase101Click(Sender: TObject);
+    procedure Obtenerenhexadecimal1Click(Sender: TObject);
+    procedure Hexadecimaladecimal1Click(Sender: TObject);
+  private
+    { Private declarations }
+    N: NumeroNatural;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.abasen1Click(Sender: TObject);
+var base: byte;
+begin
+     base := StrToInt(inputBox('Introduzca la base (n) para llevar valor a esa base', 'porfavor que sea <= a 10', ''));
+     N.base10aBaseN(base);
+end;
+
+procedure TfrmPrincipal.basenabase101Click(Sender: TObject);
+var base: byte;
+begin
+  base := StrToInt(inputBox('Introduzca la base de valor, para convertir a decimal', 'porfavor que sea (n) <= a 10', ''));
+  N.baseNaBase10(base);
+end;
+
+procedure TfrmPrincipal.CambiarValor1Click(Sender: TObject);
+begin
+    N.setValue(StrToInt(Edit1.Text));
+end;
+
+procedure TfrmPrincipal.CambiarValor2Click(Sender: TObject);
+begin
+     Label2.Caption:= 'El valor es: ' + IntToStr(N.getValue);
+end;
+
+procedure TfrmPrincipal.E1Click(Sender: TObject);
+begin
+   n.borrarCeros;
+end;
+
+procedure TfrmPrincipal.Exstenumero1Click(Sender: TObject);
+var num: cardinal;
+begin
+  num := StrToInt(inputBox('Introduzca un numero', 'para saber si esta en el valor', ''));
+  if n.esSubnumero(num) then ShowMessage('Si')
+  else ShowMessage('No');
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+     N := NumeroNatural.Create;
+end;
+
+procedure TfrmPrincipal.Hexadecimaladecimal1Click(Sender: TObject);
+var hex: string;
+begin
+  hex := InputBox('Digite un hexadecimal','Con mayusculas por favor','');
+  ShowMessage(IntToStr(N.HexToDec(hex)));
+end;
+
+procedure TfrmPrincipal.Invertir1Click(Sender: TObject);
+begin
+  N.invertir;
+end;
+
+procedure TfrmPrincipal.Nuevometodo1Click(Sender: TObject);
+begin
+  N.setDigit(StrToInt(Edit2.Text), StrToInt(Edit3.Text));
+end;
+
+procedure TfrmPrincipal.Numerodedigitos1Click(Sender: TObject);
+begin
+     Label2.Caption:='El numero de digitos es: '+IntToStr(N.getNumDig);
+end;
+
+procedure TfrmPrincipal.Numerodedigitos2Click(Sender: TObject);
+begin
+     N.insDigit(StrToInt(Edit2.Text),StrToInt(Edit3.Text));
+end;
+
+procedure TfrmPrincipal.Obtenerenhexadecimal1Click(Sender: TObject);
+begin
+  ShowMessage(N.getEnHex);
+end;
+
+procedure TfrmPrincipal.Ordenaradentroafuera1Click(Sender: TObject);
+begin
+  N.ordenarAdentroAfuera;
+end;
+
+procedure TfrmPrincipal.Ordenr1Click(Sender: TObject);
+begin
+  N.ordenarDescendente;
+end;
+
+end.

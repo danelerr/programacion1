@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/04/02 17:45:25.000.912,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/12/08 23:04:19.000.938,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/01/27 17:20:26.000.312,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/01/27 17:20:37.000.474,=C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2021/01/27 17:21:07.000.529,C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\MJP\Programacion I\Vector\UCVector.pas</Transaction>
+    <Transaction>2021/01/27 17:21:14.000.507,C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\MJP\Programacion I\Vector\UFPrincipal.dfm</Transaction>
+    <Transaction>2021/01/27 17:21:14.000.507,C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\MJP\Programacion I\Vector\UFPrincipal.pas</Transaction>
+    <Transaction>2021/01/27 17:21:21.000.327,C:\Users\Aorus X3 V7\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\MJP\Programacion I\Vector\Vectores.dproj</Transaction>
+    <Transaction>2021/03/10 16:58:07.000.451,=D:\Pascal SC\Vector\Vector\Unit1.pas</Transaction>
+    <Transaction>2021/03/10 18:40:18.000.388,=D:\Pascal SC\Vector\Vector\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
