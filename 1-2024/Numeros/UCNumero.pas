@@ -23,8 +23,9 @@ Type
          procedure ordernarDesc;
          procedure ordernarAsc;
 
-         procedure eliminarDigitosAlLadodeUnPar;
+
          procedure getMenorCombinacion;
+
     End;
 
 implementation
@@ -68,24 +69,6 @@ begin
   end;
 end;
 
-procedure Numero.eliminarDigitosAlLadodeUnPar;
-var i, n, p: byte;
-begin
-  n := size; p := 1;
-  for i:=1 to n do begin
-
-    if (p > 1) and (getDigit(p-1) mod 2 = 0) then begin
-      delDigit(p)
-    end else if (p < size) and(getDigit(p+1) mod 2 = 0) then begin
-      delDigit(p)
-    end else begin
-      p := p + 1;
-    end;
-  end;
-end;
-
-
-
 
 
 function Numero.getDigit(p: Byte): Byte;
@@ -121,6 +104,8 @@ function Numero.getValue: Cardinal;
 begin
      Result:=Valor;
 end;
+
+
 
 procedure Numero.insDigit(p :Byte; d: Byte);
 Var
@@ -165,6 +150,9 @@ begin
   end;
   valor := res;
 end;
+
+
+
 
 
 procedure Numero.ordernarAsc;

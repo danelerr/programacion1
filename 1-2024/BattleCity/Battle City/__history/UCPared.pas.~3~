@@ -1,0 +1,23 @@
+unit UCPared;
+
+interface
+
+uses graphics;
+
+type
+  TPared = class
+    public
+        x, y: word;
+        w, h: word;
+        direccion: word;
+        skin: TBitMap;
+      constructor create(direccion: word);
+      procedure cargarSkin(rutaSkin: string);
+      procedure dibujar(pantalla: TCanvas);
+      procedure setXY(x, y: word);
+      procedure mover;
+end;
+
+implementation
+
+end.

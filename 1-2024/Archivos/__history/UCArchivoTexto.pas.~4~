@@ -1,0 +1,55 @@
+unit UCArchivoTexto;
+
+interface
+Uses Vcl.StdCtrls;
+
+Type
+    ArchivoTexto = Class
+      Private
+          Nombre : String;
+          PFile  : TextFile;
+      Public
+          Procedure Abrir(M:TMemo);
+          Procedure Guardar(M:TMemo);
+          Procedure Cerrar;
+          Procedure setNombre(n:String);
+    End;
+
+implementation
+
+{ ArchivoTexto }
+
+procedure ArchivoTexto.Abrir(M:TMemo);
+Var
+    s: String;
+begin
+     AssignFile(PFile,Nombre);
+     Reset(PFile);
+     while not EOF(PFile) do
+     Begin
+          Readln(PFile,s);
+          M.Lines.Add(s);
+     End;
+end;
+
+procedure ArchivoTexto.Cerrar;
+begin
+     CloseFile(PFile);
+end;
+
+procedure ArchivoTexto.Guardar(M:TMemo);
+var
+  I: Integer;
+begin
+     AssignFile(PFile,Nombre);
+     Rewrite(PFile);
+     for I := 0 to M.Lines.Count do
+      Writeln(PFile,M.Lines[i]);
+end;
+
+procedure ArchivoTexto.setNombre(n: String);
+begin
+     Nombre:=n;
+end;
+
+end.

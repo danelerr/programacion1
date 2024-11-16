@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/05/19 20:37:32.000.404,=D:\DELPHI default proyects\Unit1.pas</Transaction>
+    <Transaction>2024/05/19 20:37:51.000.844,D:\DELPHI default proyects\Unit1.dfm=C:\Users\danie\OneDrive\Desktop\Battle City\Unit1.dfm</Transaction>
+    <Transaction>2024/05/19 20:37:51.000.844,D:\DELPHI default proyects\Unit1.pas=C:\Users\danie\OneDrive\Desktop\Battle City\Unit1.pas</Transaction>
+    <Transaction>2024/05/19 20:37:58.000.097,D:\DELPHI default proyects\Project1.dproj=C:\Users\danie\OneDrive\Desktop\Battle City\BattleCity.dproj</Transaction>
+    <Transaction>2024/05/19 20:39:03.000.294,=C:\Users\danie\OneDrive\Desktop\Battle City\UCTanque.pas</Transaction>
+    <Transaction>2024/05/19 21:05:00.000.957,=C:\Users\danie\OneDrive\Desktop\Battle City\Unit2.pas</Transaction>
+    <Transaction>2024/05/19 21:05:06.000.482,C:\Users\danie\OneDrive\Desktop\Battle City\Unit2.pas=C:\Users\danie\OneDrive\Desktop\Battle City\UCBala.pas</Transaction>
+    <Transaction>2024/05/26 18:47:26.000.942,=C:\Users\danie\OneDrive\Desktop\Battle City\Unit2.pas</Transaction>
+    <Transaction>2024/05/26 18:47:33.000.250,C:\Users\danie\OneDrive\Desktop\Battle City\UCPared.pas=C:\Users\danie\OneDrive\Desktop\Battle City\Unit2.pas</Transaction>
+    <Transaction>2024/06/22 18:53:09.000.800,=C:\Users\danie\OneDrive\Desktop\Battle City\Unit2.pas</Transaction>
+    <Transaction>2024/06/22 18:53:18.000.598,C:\Users\danie\OneDrive\Desktop\Battle City\UCEscenario.pas=C:\Users\danie\OneDrive\Desktop\Battle City\Unit2.pas</Transaction>
+    <Transaction>2024/06/22 20:37:33.000.228,=C:\Users\danie\OneDrive\Desktop\Battle City\AudioManager.pas</Transaction>
+  </Transactions>
+</BorlandProject>

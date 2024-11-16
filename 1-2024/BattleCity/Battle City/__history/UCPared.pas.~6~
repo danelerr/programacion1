@@ -1,0 +1,41 @@
+unit UCPared;
+
+interface
+
+uses graphics;
+
+type
+  TPared = class
+    public
+        x, y: word;
+        w, h: word;
+        skin: TBitMap;
+      constructor create(x, y, direccion: word);
+      procedure cargarSkin(rutaSkin: string);
+      procedure dibujar(pantalla: TCanvas);
+end;
+
+implementation
+
+{ TPared }
+
+procedure TPared.cargarSkin(rutaSkin: string);
+begin
+   skin := TBitMap.Create;
+   skin.LoadFromFile(rutaSkin);
+
+   w := skin.Width;
+   h := skin.Height;
+end;
+
+constructor TPared.create(x, y, direccion: word);
+begin
+
+end;
+
+procedure TPared.dibujar(pantalla: TCanvas);
+begin
+
+end;
+
+end.

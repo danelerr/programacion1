@@ -78,14 +78,12 @@ end;
 
 procedure TfrmPrincipal.eliminardigitosalladodepar1Click(Sender: TObject);
 begin
-  N.eliminarDigitosAlLadodeUnPar;
+  N.eliminarDigitosAlLadodeUnPar3;
 end;
 
 procedure TfrmPrincipal.EncontrarCombinacion1Click(Sender: TObject);
-var k: integer;
 begin
-   k := StrToInt(inputbox('introduzca un numero', '', ''));
-   ShowMessage(IntToStr(N.getCombinacion(k)));
+  N.ImparIzqParDe_Ordenado;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
@@ -95,7 +93,7 @@ end;
 
 procedure TfrmPrincipal.Getmenorcombinacion1Click(Sender: TObject);
 begin
-  N.getMenorCombinacion;
+  n.getMenorCombinacion;
 end;
 
 procedure TfrmPrincipal.Insertardigito2Click(Sender: TObject);
