@@ -1,0 +1,9 @@
+program Project2;
+
+var archivo: TextFile;
+begin
+  AssignFile(archivo, 'archivo.txt');
+  ReWrite(archivo);
+  writeln(archivo, 'ariane bonita <3');
+  readln;
+end.

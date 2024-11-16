@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/09/16 19:52:08.000.053,=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/10/13 16:53:48.000.161,=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/10/13 16:53:56.000.824,=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/10/13 16:54:31.000.910,D:\Programacion I\Archivos\UCArchivoTexto.pas=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/10/13 16:54:38.000.472,D:\Programacion I\Archivos\UFPrincipal.dfm=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2023/10/13 16:54:38.000.472,D:\Programacion I\Archivos\UFPrincipal.pas=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/10/13 16:54:59.000.524,D:\Programacion I\Archivos\Archivos.dproj=C:\Users\Estudiante\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2023/10/18 17:26:09.000.811,=D:\Programacion I\Cadena\UCCadena.pas</Transaction>
+    <Transaction>2023/10/18 17:28:08.000.984,D:\Programacion I\Cadena\UCCadena.pas=</Transaction>
+    <Transaction>2023/10/20 16:57:59.000.140,=D:\Programacion I\Cadena\UCCadena.pas</Transaction>
+    <Transaction>2024/04/26 17:27:43.000.720,=D:\Prog\Numeros\UCNumero.pas</Transaction>
+    <Transaction>2024/10/26 11:44:42.000.911,=C:\Users\danie\OneDrive\Desktop\Archivos\Archivos\UCCadena.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="UCArchivoTexto.pas"/>
+    <File Path="UFPrincipal.pas"/>
+    <File Path="UFPrincipal.dfm"/>
+    <File Path="UCCadena.pas"/>
+  </ProjectSortOrder>
+</BorlandProject>

@@ -1,0 +1,13 @@
+This is a simple console program that will create and add one string to a stringlist. Now here's some things you should know:
+
+Create - Will create the string list for modifying. If you use constructor Create, you have to later Free. Calling free causes destructor a Destroy invitation and release the memory it takes. If not, you program will not crash, but it will not release all the memory it occupied: a memory leak.
+
+Count - This property is a counter for the number of strings in the List.
+
+Add - This method allows you to add one string to the stringlist. It is a function that will return the Index of the String. This is where the counter comes in handy.
+
+Delete - Will delete a string from the stringlist. Just know that you do not simply input the string, you have to input the index of the string. Like I said: it's like a fancy Dynamic Array.
+
+IndexOf - Will return the index of the string in the list. If it is not found it returns -1.
+
+Clear - Will clear the list.

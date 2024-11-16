@@ -1,0 +1,14 @@
+﻿program Project2;
+
+var archivo: TextFile;
+linea: string;
+begin
+  AssignFile(archivo, 'archivo.txt');
+  Reset(archivo);
+  while not EOF(archivo) do begin
+    readln(archivo, linea);
+    writeln(linea);
+  end;
+  CloseFile(archivo);
+  readln;
+end.

@@ -1,0 +1,58 @@
+unit UCNumero;
+
+interface
+Uses Math;
+Type
+    Numero = Class
+      Private
+            Valor:Cardinal;
+      Public
+            Function getDigit(p:Byte):Byte;
+            Function getNumDigit:Byte;
+            Procedure addDigitFirst(d:Byte);
+            Procedure addDigitLast(d:Byte);
+            Procedure insDigit(p:Byte;d:Byte);
+            Procedure delDigit(p:Byte);
+            Procedure modDigit(p:Byte;d:Byte);
+    End;
+
+implementation
+
+{ Numero }
+
+procedure Numero.addDigitFirst(d: Byte);
+begin
+     Valor:=Valor*10+d;
+end;
+
+procedure Numero.addDigitLast(d: Byte);
+begin
+
+end;
+
+procedure Numero.delDigit(p: Byte);
+begin
+
+end;
+
+function Numero.getDigit(p: Byte): Byte;
+begin
+     Result:=(Valor div (Trunc(Power(10,p-1)))) mod 10;
+end;
+
+function Numero.getNumDigit: Byte;
+begin
+     Result:=Trunc(Log10(Valor))+1;;
+end;
+
+procedure Numero.insDigit(p, d: Byte);
+begin
+
+end;
+
+procedure Numero.modDigit(p, d: Byte);
+begin
+
+end;
+
+end.

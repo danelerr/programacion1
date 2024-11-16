@@ -1,0 +1,74 @@
+unit UCNumero;
+
+interface
+Uses Math,SysUtils;
+Type
+    Numero = Class
+      Private
+            Valor:Cardinal;
+      Public
+            Function getValue:Cardinal;
+            Function getDigit(p:Byte):Byte;
+            Function getNumDigit:Byte;
+            Procedure addDigitFirst(d:Byte);
+            Procedure addDigitLast(d:Byte);
+            Procedure insDigit(p:Byte;d:Byte);
+            Procedure delDigit(p:Byte);
+            Procedure modDigit(p:Byte;d:Byte);
+    End;
+
+implementation
+
+{ Numero }
+
+procedure Numero.addDigitFirst(d: Byte);
+begin
+     Valor:=Valor*10+d;
+end;
+
+procedure Numero.addDigitLast(d: Byte);
+Var
+  k : Cardinal;
+begin
+     k:=Trunc(Power(10,getNumDigit));
+     Valor:=d*k+Valor;
+end;
+
+procedure Numero.delDigit(p: Byte);
+Var
+  k : Cardinal;
+begin
+     k:=Trunc(Power(10,p-1));
+     Valor:=((Valor div k) div 10)*k+(Valor mod k);
+end;
+
+function Numero.getDigit(p: Byte): Byte;
+begin
+     if (p>0) and (p<=getNumDigit) then
+         Result:=(Valor div (Trunc(Power(10,p-1)))) mod 10
+     Else raise Exception.Create('Posicion fuera de rango');
+end;
+
+function Numero.getNumDigit: Byte;
+begin
+     if Valor=0 then Result:=1
+     Else
+     Result:=Trunc(Log10(Valor))+1;;
+end;
+
+function Numero.getValue: Cardinal;
+begin
+     Result:=Valor;
+end;
+
+procedure Numero.insDigit(p, d: Byte);
+begin
+
+end;
+
+procedure Numero.modDigit(p, d: Byte);
+begin
+
+end;
+
+end.

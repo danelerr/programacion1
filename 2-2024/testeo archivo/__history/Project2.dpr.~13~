@@ -1,0 +1,10 @@
+﻿program Project2;
+
+var archivo: TextFile;
+begin
+  AssignFile(archivo, 'archivo.txt');
+  ReWrite(archivo);
+  writeln(archivo, 'Ariane bonita ❤');
+  CloseFile(archivo);
+  readln;
+end.

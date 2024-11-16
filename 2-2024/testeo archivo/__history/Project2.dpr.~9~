@@ -1,0 +1,8 @@
+program Project2;
+
+var archivo: TextFile;
+begin
+  AssignFile(archivo, 'archivo.txt');
+  ReWrite(archivo);
+  readln;
+end.
